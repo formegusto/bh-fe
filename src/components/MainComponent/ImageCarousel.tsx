@@ -3,43 +3,51 @@ import Assets from "src/assets";
 import styled, { keyframes } from "styled-components";
 
 function ImageCarousel() {
-  //   const idx = React.useRef<number>(0);
-  //   const [images, setImages] = React.useState<Array<any>>([
-  //     <Image src={Assets.banner_1} className="banner-image active" />,
-  //   ]);
+  React.useEffect(() => {
+    setInterval(() => {
+      const elActive = document.querySelector(".banner-image.active");
 
-  //   React.useEffect(() => {
-  //     console.log("실행");
-  //     setInterval(() => {
-  //       setImages((state) => {
-  //         const length = state.length;
+      if (elActive) {
+        let elNextActive = elActive.nextSibling;
 
-  //         if (length > 2) {
-  //           state.shift();
-  //         }
-  //         console.log(idx.current);
-  //         idx.current += 1;
+        if (elNextActive) {
+          if (
+            !(elNextActive as HTMLImageElement).classList.contains(
+              "banner-image"
+            )
+          ) {
+            elNextActive = document.querySelector(".banner-image");
+          }
+        }
 
-  //         return idx.current % 2 === 1
-  //           ? state.concat(
-  //               <Image
-  //                 src={Assets.banner_2}
-  //                 className="banner-image activating"
-  //               />
-  //             )
-  //           : state.concat(
-  //               <Image
-  //                 src={Assets.banner_1}
-  //                 className="banner-image activating"
-  //               />
-  //             );
-  //       });
-  //     }, 4000);
-  //   }, []);
+        if (elNextActive) {
+          (elActive as HTMLImageElement).classList.add("inactivating");
+          (elActive as HTMLImageElement).classList.remove("active");
+          (elNextActive as HTMLImageElement).classList.add("activating");
+        }
+      }
+    }, 3000);
+
+    const elBannerImages = document.querySelectorAll(".banner-image");
+    elBannerImages.forEach((_) => {
+      _.addEventListener("animationend", () => {
+        _.classList.remove("activating");
+        _.classList.add("active");
+
+        const elInActive = document.querySelector(".banner-image.inactivating");
+        if (elInActive) {
+          (elInActive as HTMLImageElement).classList.remove("inactivating");
+        }
+      });
+    });
+  }, []);
 
   return (
     <>
-      <Image src={Assets.banner_2} className="banner-image activating" />
+      <Image src={Assets.banner_1} className="banner-image active" />
+      <Image src={Assets.banner_2} className="banner-image" />
+      <Image src={Assets.banner_3} className="banner-image" />
+      <Image src={Assets.banner_4} className="banner-image" />
     </>
   );
 }
@@ -54,21 +62,31 @@ const fadeInOutAnimation = keyframes`
 
 const Image = styled.img`
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
 
   width: 100%;
-  height: 100%;
+  height: 850px;
 
   object-fit: cover;
 
   &:not(.active) {
-    display: none;
+    z-index: 0;
+  }
+
+  &.active {
+    z-index: 4;
+    display: block;
   }
 
   &.activating {
+    z-index: 4;
     display: block;
     animation: ${fadeInOutAnimation} 1.25s;
+  }
+
+  &.inactivating {
+    z-index: 3;
   }
 `;
 

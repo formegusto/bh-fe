@@ -30,6 +30,8 @@ const Information = {
     width: calc(100% / 3 - 48px);
     height: 310px;
     border: 1px solid ${ACHROMATIC[5]};
+
+    cursor: pointer;
   `,
 };
 

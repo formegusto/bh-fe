@@ -41,12 +41,13 @@ function Banner() {
 const Wrap = styled.article`
   position: relative;
   width: 100%;
-  height: 750px;
+  height: 850px;
 `;
 
 const Information = {
   Block: styled.div`
     position: absolute;
+    z-index: 10;
     bottom: 0;
 
     width: 100%;
