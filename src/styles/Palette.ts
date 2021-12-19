@@ -1,21 +1,31 @@
 export const BLUE = [
   "#2C5E9E", // main blue // 0
+  "#26446d", // main blue darker // 1
 
   // getting brighter
-  "#8199B6", // 1
-  "#56749D", // 2
-  "#588DDA", // 3
-  "#5EB4ED", // 4
-  "#9EC8FA", // 5
+  "#8199B6", // 2
+  "#56749D", // 3
+  "#588DDA", // 4
+  "#5EB4ED", // 5
+  "#9EC8FA", // 6
 ];
 
 export const ACHROMATIC = [
   // getting darker
-  "#333333", // 0
-  "#666666", // 1
-  "#999999", // 2
-  "#AAAAAA", // 3
-  "#CCCCCC", // 4
-  "#EEEEEE", // 5
-  "#FFFFFF", // 6
+  "#000",
+  "#111",
+  "#222",
+  "#333",
+  "#444",
+  "#555",
+  "#666",
+  "#777",
+  "#888",
+  "#999",
+  "#AAA",
+  "#BBB",
+  "#CCC",
+  "#DDD",
+  "#EEE",
+  "#FFF",
 ];

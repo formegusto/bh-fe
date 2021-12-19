@@ -44,10 +44,13 @@ function ImageCarousel() {
 
   return (
     <>
-      <Image src={Assets.banner_1} className="banner-image active" />
-      <Image src={Assets.banner_2} className="banner-image" />
-      <Image src={Assets.banner_3} className="banner-image" />
-      <Image src={Assets.banner_4} className="banner-image" />
+      <Image
+        src={Assets.Banner.Banner1Darker}
+        className="banner-image active"
+      />
+      <Image src={Assets.Banner.Banner2Darker} className="banner-image" />
+      <Image src={Assets.Banner.Banner3Darker} className="banner-image" />
+      <Image src={Assets.Banner.Banner4Darker} className="banner-image" />
     </>
   );
 }
@@ -69,6 +72,7 @@ const Image = styled.img`
   height: 850px;
 
   object-fit: cover;
+  object-position: 50% 50%;
 
   &:not(.active) {
     z-index: 0;

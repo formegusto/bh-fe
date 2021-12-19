@@ -81,7 +81,7 @@ const Information = {
   Box: styled.div`
     position: relative;
     flex: 1;
-    color: ${ACHROMATIC[6]};
+    color: ${ACHROMATIC[15]};
     cursor: pointer;
 
     &:hover {

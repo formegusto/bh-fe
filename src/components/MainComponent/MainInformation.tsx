@@ -9,7 +9,10 @@ function MainInformation() {
       <ContainerWidth1240>
         <Information.Block>
           <Information.Item>
-            <Information.Image src={Assets.info_1} alt="information 1" />
+            <Information.Image
+              src={Assets.Banner.SubBanner1Darker}
+              alt="information 1"
+            />
             <Information.DescriptionBlock>
               <Information.Title>
                 설치정보 제공 서비스(위치/센서/모니터링 등)
@@ -21,7 +24,10 @@ function MainInformation() {
             </Information.DescriptionBlock>
           </Information.Item>
           <Information.Item>
-            <Information.Image src={Assets.info_2} alt="information 2" />
+            <Information.Image
+              src={Assets.Banner.SubBanner2Darker}
+              alt="information 2"
+            />
             <Information.DescriptionBlock>
               <Information.Title>
                 데이터 공유 서비스(외부사용자 활용)
@@ -33,7 +39,10 @@ function MainInformation() {
             </Information.DescriptionBlock>
           </Information.Item>
           <Information.Item>
-            <Information.Image src={Assets.info_3} alt="information 3" />
+            <Information.Image
+              src={Assets.Banner.SubBanner3Darker}
+              alt="information 3"
+            />
             <Information.DescriptionBlock>
               <Information.Title>사업개요 및 이용방법</Information.Title>
               <Information.Desc>
@@ -50,7 +59,7 @@ function MainInformation() {
 
 const Wrap = styled.div`
   padding: 48px 0;
-  background-color: ${ACHROMATIC[6]};
+  background-color: ${ACHROMATIC[15]};
 `;
 
 const Information = {
@@ -60,7 +69,7 @@ const Information = {
   `,
   Item: styled.div`
     width: calc(100% / 3 - 48px);
-    border: 1px solid ${ACHROMATIC[5]};
+    border: 1px solid ${ACHROMATIC[14]};
 
     cursor: pointer;
     transition: 0.7s;

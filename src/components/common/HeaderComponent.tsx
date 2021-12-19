@@ -6,34 +6,23 @@ import styled from "styled-components";
 function HeaderComponent() {
   return (
     <Wrap>
-      <OptionBar.Block></OptionBar.Block>
-      <LogoBar.Block>
-        <a href="https://www.keti.re.kr/main/main.php">
-          <LogoBar.Logo src={Assets.keti_logo_horizontal} alt="KETI LOGO" />
-        </a>
-      </LogoBar.Block>
-      <Nav.Block>
-        <ContainerWidth1240>
-          <Nav.Navs>
-            <Nav.Item>
-              About us
-              <Nav.DropDown />
-            </Nav.Item>
-            <Nav.Item>
-              Data Information
-              <Nav.DropDown />
-            </Nav.Item>
-            <Nav.Item>
-              Data Sharing
-              <Nav.DropDown />
-            </Nav.Item>
-            <Nav.Item>
-              Login
-              <Nav.DropDown />
-            </Nav.Item>
-          </Nav.Navs>
-        </ContainerWidth1240>
-      </Nav.Block>
+      <ContainerWidth1240 className="header-container">
+        <LogoBlock>
+          <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
+        </LogoBlock>
+        <Nav.Wrap>
+          <Nav.Option.Block>
+            <Nav.Option.Item>Contact Us</Nav.Option.Item>
+            <Nav.Option.Item>English</Nav.Option.Item>
+          </Nav.Option.Block>
+          <Nav.Main.Block>
+            <Nav.Main.Item>About Us</Nav.Main.Item>
+            <Nav.Main.Item>Data Information</Nav.Main.Item>
+            <Nav.Main.Item>Data Sharing</Nav.Main.Item>
+            <Nav.Main.Item>Login</Nav.Main.Item>
+          </Nav.Main.Block>
+        </Nav.Wrap>
+      </ContainerWidth1240>
     </Wrap>
   );
 }
@@ -45,74 +34,85 @@ const Wrap = styled.header`
   top: 0;
   left: 0;
 
-  background-color: ${ACHROMATIC[6]};
+  background-color: ${ACHROMATIC[15]};
 
   z-index: 255;
-`;
 
-const OptionBar = {
-  Block: styled.div`
-    height: 24px;
-    border-bottom: 1px solid ${ACHROMATIC[5]};
-    box-sizing: border-box;
-  `,
-  Options: styled.ul``,
-  Item: styled.li``,
-};
-
-const LogoBar = {
-  Block: styled.div`
+  & > .header-container {
+    height: 100px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-  `,
-  Logo: styled.img`
+    justify-content: space-between;
+  }
+`;
+
+const LogoBlock = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > img {
     width: 266px;
-    margin: 8px 0;
-  `,
-};
+  }
+`;
 
 const Nav = {
-  Block: styled.nav`
-    background-color: ${BLUE[0]};
+  Wrap: styled.nav`
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
   `,
-  Navs: styled.ul`
-    display: table;
-    height: 32px;
-    border-collapse: collapse;
-  `,
-  Item: styled.li`
-    display: table-cell;
-    position: relative;
-    width: calc(1240px / 4);
+  Option: {
+    Block: styled.ul`
+      height: 24px;
+      margin: 18px 0 0;
 
-    text-align: center;
-    line-height: 32px;
-    color: ${ACHROMATIC[6]};
+      display: flex;
+      align-items: center;
 
-    border-left: 1px solid ${BLUE[1]};
-    border-right: 1px solid ${BLUE[1]};
+      font-style: normal;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 12px;
 
-    cursor: pointer;
+      color: ${ACHROMATIC[11]};
+      box-sizing: border-box;
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      & > div {
-        transform: scaleY(1);
+      & > li:not(:last-child) {
+        padding: 0 8px 0;
+        border-right: 1px solid ${ACHROMATIC[11]};
       }
-    }
-  `,
-  DropDown: styled.div`
-    position: absolute;
-    width: 100%;
-    height: 250px;
+    `,
+    Item: styled.li`
+      height: 12px;
+      cursor: pointer;
+      padding: 0 0 0 7px;
+    `,
+  },
+  Main: {
+    Block: styled.ul`
+      flex: 1;
 
-    transform: scaleY(0);
-    transform-origin: 50% 0%;
-    transition: 0.5s;
+      display: flex;
 
-    background-color: rgba(45, 63, 85, 0.7);
-  `,
+      & > li:not(:last-child) {
+        margin: 0 50px 0 0;
+      }
+    `,
+    Item: styled.li`
+      padding: 12px 0 30px;
+      box-sizing: border-box;
+
+      font-style: normal;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 16px;
+
+      color: ${BLUE[1]};
+    `,
+  },
 };
 
 export default HeaderComponent;
