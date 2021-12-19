@@ -12,7 +12,14 @@ type BasicTemplateProps = {
 
 interface Props extends React.PropsWithChildren<BasicTemplateProps> {}
 
-function BasicTemplate({ children, titleImage, title, description }: Props) {
+function BasicTemplate({
+  children,
+  titleImage,
+  title,
+  description,
+  subTitle,
+  subDescription,
+}: Props) {
   return (
     <Wrap>
       <PageBanner>
@@ -21,6 +28,8 @@ function BasicTemplate({ children, titleImage, title, description }: Props) {
           <ContainerWidth1240>
             <Title>{title}</Title>
             <Description>{description}</Description>
+            {subTitle && <SubTitle>{subTitle}</SubTitle>}
+            {subDescription && <Description>{subDescription}</Description>}
           </ContainerWidth1240>
         </BackShadow>
       </PageBanner>
@@ -83,4 +92,13 @@ const Description = styled.h3`
 
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
 `;
+
+const SubTitle = styled.h2`
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 40px;
+
+  margin: 16px 0 0;
+`;
+
 export default BasicTemplate;
