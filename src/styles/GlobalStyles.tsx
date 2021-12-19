@@ -54,6 +54,10 @@ const GlobalStyles = createGlobalStyle`
     *::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
     }
+
+    a {
+        text-decoration: none;
+    }
 `;
 
 export default GlobalStyles;

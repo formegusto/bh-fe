@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Assets from "src/assets";
 import { ContainerWidth1240 } from "src/styles/Container";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
@@ -8,7 +9,9 @@ function HeaderComponent() {
     <Wrap>
       <ContainerWidth1240 className="header-container">
         <LogoBlock>
-          <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
+          <Link to="/">
+            <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
+          </Link>
         </LogoBlock>
         <Nav.Wrap>
           <Nav.Option.Block>
@@ -16,16 +19,28 @@ function HeaderComponent() {
             <Nav.Option.Item>English</Nav.Option.Item>
           </Nav.Option.Block>
           <Nav.Main.Block>
-            <Nav.Main.Item>About Us</Nav.Main.Item>
-            <Nav.Main.Item>Data Information</Nav.Main.Item>
-            <Nav.Main.Item>
-              Data Sharing
-              <Nav.Main.DropDown>
-                <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
-                <Nav.Main.DropDownItem>Console</Nav.Main.DropDownItem>
-              </Nav.Main.DropDown>
-            </Nav.Main.Item>
-            <Nav.Main.Item>Login</Nav.Main.Item>
+            <Link to="/about">
+              <Nav.Main.Item>About Us</Nav.Main.Item>
+            </Link>
+            <Link to="/information">
+              <Nav.Main.Item>Data Information</Nav.Main.Item>
+            </Link>
+            <Link to="/sharing/document">
+              <Nav.Main.Item>
+                Data Sharing
+                <Nav.Main.DropDown>
+                  <Link to="/sharing/document">
+                    <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
+                  </Link>
+                  <Link to="/sharing/console">
+                    <Nav.Main.DropDownItem>Console</Nav.Main.DropDownItem>
+                  </Link>
+                </Nav.Main.DropDown>
+              </Nav.Main.Item>
+            </Link>
+            <Link to="/auth/signin">
+              <Nav.Main.Item>Login</Nav.Main.Item>
+            </Link>
           </Nav.Main.Block>
         </Nav.Wrap>
       </ContainerWidth1240>
@@ -56,7 +71,7 @@ const LogoBlock = styled.div`
   display: flex;
   align-items: center;
 
-  & > img {
+  & > a > img {
     width: 266px;
   }
 `;
@@ -106,7 +121,7 @@ const Nav = {
 
       display: flex;
 
-      & > li:not(:last-child) {
+      & > a:not(:last-child) > li {
         margin: 0 34px 0 0;
       }
     `,
@@ -150,7 +165,7 @@ const Nav = {
         & > ul {
           transform: scaleY(1);
 
-          & > li {
+          & > a > li {
             color: ${ACHROMATIC[15]};
           }
         }
