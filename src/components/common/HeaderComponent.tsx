@@ -87,7 +87,7 @@ const Nav = {
       box-sizing: border-box;
 
       & > li:last-child {
-        padding: 0 8px 0 7px;
+        padding: 0 8px 0 8px;
       }
 
       & > li:not(:last-child) {
@@ -97,7 +97,7 @@ const Nav = {
     Item: styled.li`
       height: 12px;
       cursor: pointer;
-      padding: 0 8px 0;
+      padding: 0 9px 0;
     `,
   },
   Main: {

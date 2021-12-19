@@ -94,7 +94,7 @@ const Information = {
     font-size: 16px;
     line-height: 19px;
 
-    color: #333333;
+    color: ${ACHROMATIC[4]};
 
     margin: 0 0 8px;
   `,
@@ -104,7 +104,7 @@ const Information = {
     font-size: 14px;
     line-height: 20px;
 
-    color: #666666;
+    color: ${ACHROMATIC[7]};
   `,
 };
 

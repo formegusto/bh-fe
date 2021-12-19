@@ -34,6 +34,10 @@ function Banner() {
           </Information.BoxBlock>
         </ContainerWidth1240>
       </Information.Block>
+      <BEMS.Wrap>
+        <BEMS.Title>BEMS HDMS</BEMS.Title>
+        <BEMS.SubTitle>Human Data Management System </BEMS.SubTitle>
+      </BEMS.Wrap>
     </Wrap>
   );
 }
@@ -42,7 +46,38 @@ const Wrap = styled.article`
   position: relative;
   width: 100%;
   height: 850px;
+
+  display: flex;
+  justify-content: center;
 `;
+
+const BEMS = {
+  Wrap: styled.div`
+    position: relative;
+    z-index: 15;
+
+    height: 103px;
+
+    font-style: normal;
+    font-weight: bold;
+    color: ${ACHROMATIC[15]};
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
+
+    transform: translateY(210px);
+  `,
+  Title: styled.h1`
+    font-style: normal;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 75px;
+    /* identical to box height */
+    margin: 0 0 4px;
+  `,
+  SubTitle: styled.h2`
+    font-size: 24px;
+    line-height: 28px;
+  `,
+};
 
 const Information = {
   Block: styled.div`
@@ -62,20 +97,20 @@ const Information = {
     display: flex;
     flex-direction: row;
 
-    padding: 120px 0 0;
+    padding: 160px 0 0;
     width: 100%;
 
     & > div:nth-child(1) > span {
-      background-color: ${BLUE[1]};
-    }
-    & > div:nth-child(2) > span {
       background-color: ${BLUE[2]};
     }
-    & > div:nth-child(3) > span {
+    & > div:nth-child(2) > span {
       background-color: ${BLUE[3]};
     }
-    & > div:nth-child(4) > span {
+    & > div:nth-child(3) > span {
       background-color: ${BLUE[4]};
+    }
+    & > div:nth-child(4) > span {
+      background-color: ${BLUE[5]};
     }
   `,
   Box: styled.div`
