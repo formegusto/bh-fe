@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Assets from "src/assets";
 import { ContainerWidth1240 } from "src/styles/Container";
@@ -19,28 +20,44 @@ function HeaderComponent() {
             <Nav.Option.Item>English</Nav.Option.Item>
           </Nav.Option.Block>
           <Nav.Main.Block>
-            <Link to="/about">
+            <NavLink
+              to="/about"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               <Nav.Main.Item>About Us</Nav.Main.Item>
-            </Link>
-            <Link to="/information">
+            </NavLink>
+            <NavLink
+              to="/information"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               <Nav.Main.Item>Data Information</Nav.Main.Item>
-            </Link>
-            <Link to="/sharing/document">
+            </NavLink>
+            <NavLink
+              to="/sharing"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               <Nav.Main.Item>
                 Data Sharing
                 <Nav.Main.DropDown>
-                  <Link to="/sharing/document">
+                  <NavLink
+                    to="/sharing"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    end
+                  >
                     <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
-                  </Link>
-                  <Link to="/sharing/console">
+                  </NavLink>
+                  <NavLink
+                    to="/sharing/console"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <Nav.Main.DropDownItem>Console</Nav.Main.DropDownItem>
-                  </Link>
+                  </NavLink>
                 </Nav.Main.DropDown>
               </Nav.Main.Item>
-            </Link>
-            <Link to="/auth/signin">
+            </NavLink>
+            <NavLink to="/auth/signin">
               <Nav.Main.Item>Login</Nav.Main.Item>
-            </Link>
+            </NavLink>
           </Nav.Main.Block>
         </Nav.Wrap>
       </ContainerWidth1240>
@@ -124,6 +141,12 @@ const Nav = {
       & > a:not(:last-child) > li {
         margin: 0 34px 0 0;
       }
+
+      & > .active > li {
+        &::after {
+          transform: scaleX(1);
+        }
+      }
     `,
     Item: styled.li`
       position: relative;
@@ -151,7 +174,7 @@ const Nav = {
 
         background-color: ${BLUE[0]};
         transform: scaleX(0);
-        transition: 0.3s;
+
         transform-origin: 0 0;
       }
 
@@ -159,6 +182,7 @@ const Nav = {
         color: rgba(38, 68, 109, 0.7);
 
         &::after {
+          transition: 0.3s;
           transform: scaleX(1);
         }
 
@@ -188,6 +212,10 @@ const Nav = {
       transform: scaleY(0);
       transition: 0.3s;
       transform-origin: 0 0;
+
+      & > .active > li {
+        color: ${BLUE[5]} !important;
+      }
     `,
     DropDownItem: styled.li`
       font-style: normal;

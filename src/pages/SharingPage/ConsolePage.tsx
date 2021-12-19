@@ -1,3 +1,4 @@
+import { Outlet } from "react-router";
 import Assets from "src/assets";
 import BasicTemplate from "src/templates/BasicTemplate";
 
@@ -9,7 +10,9 @@ function ConsolePage() {
       titleImage={Assets.Banner.SubBanner2}
       subTitle="Console"
       subDescription="BBEMS-HDMS Console Service의 간편한 인터페이스를 통해 데이터를 보다 더 쉽게 공유받을 수 있습니다."
-    ></BasicTemplate>
+    >
+      <Outlet />
+    </BasicTemplate>
   );
 }
 

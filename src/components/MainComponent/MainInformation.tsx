@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Assets from "src/assets";
 import { ContainerWidth1240 } from "src/styles/Container";
 import { ACHROMATIC } from "src/styles/Palette";
@@ -8,7 +9,7 @@ function MainInformation() {
     <Wrap>
       <ContainerWidth1240>
         <Information.Block>
-          <Information.Item>
+          <Information.Item to="/information">
             <Information.Image
               src={Assets.Banner.SubBanner1Darker}
               alt="information 1"
@@ -23,7 +24,7 @@ function MainInformation() {
               </Information.Desc>
             </Information.DescriptionBlock>
           </Information.Item>
-          <Information.Item>
+          <Information.Item to="/sharing/document">
             <Information.Image
               src={Assets.Banner.SubBanner2Darker}
               alt="information 2"
@@ -38,7 +39,7 @@ function MainInformation() {
               </Information.Desc>
             </Information.DescriptionBlock>
           </Information.Item>
-          <Information.Item>
+          <Information.Item to="/about">
             <Information.Image
               src={Assets.Banner.SubBanner3Darker}
               alt="information 3"
@@ -67,7 +68,8 @@ const Information = {
     display: flex;
     justify-content: space-between;
   `,
-  Item: styled.div`
+
+  Item: styled(Link)`
     width: calc(100% / 3 - 48px);
     border: 1px solid ${ACHROMATIC[14]};
 

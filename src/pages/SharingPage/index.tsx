@@ -1,7 +1,7 @@
-import { Outlet } from "react-router";
+import DocumentPage from "./DocumentPage";
 
 function SharingPage() {
-  return <Outlet />;
+  return <DocumentPage />;
 }
 
 export default SharingPage;

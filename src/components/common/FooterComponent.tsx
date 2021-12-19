@@ -26,8 +26,8 @@ function FooterComponent() {
               TEL : 031-789-7000 FAX : 031-789-7729
             </OrganizationBar.Paragraph12>
             <OrganizationBar.Paragraph12>
-              Copyright ⓒ 2016 KOREA ELECTRONICS TECHNOLOGY ISTITUTE. All Rights
-              Reserved.
+              Copyright ⓒ 2016 KOREA ELECTRONICS TECHNOLOGY INSTITUTE. All
+              Rights Reserved.
             </OrganizationBar.Paragraph12>
           </OrganizationBar.ParagraphWrap>
           <OrganizationBar.Logo
