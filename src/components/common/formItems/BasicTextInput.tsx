@@ -35,13 +35,18 @@ const Group = styled.div`
 
 const Input = styled.input<StyleProps>`
   ${(props) =>
-    props.isBlock &&
-    css`
-      display: block;
-      width: 100%;
-    `}
+    props.isBlock
+      ? css`
+          display: block;
+          width: 100%;
+        `
+      : css`
+          display: inline-block;
+          width: 195px;
+        `}
 
   height: 48px;
+  box-sizing: border-box;
   padding: 0 16px;
   box-sizing: border-box;
 
@@ -58,7 +63,14 @@ const Input = styled.input<StyleProps>`
     border-color: ${BLUE[1]};
   }
 
-  margin: 0 0 16px;
+  &::placeholder {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: ${ACHROMATIC[9]};
+  }
 `;
 
 const Label = styled.label`

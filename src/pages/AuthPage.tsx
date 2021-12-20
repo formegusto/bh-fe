@@ -35,13 +35,20 @@ const Wrap = styled.div`
   position: relative;
 
   width: 100vw;
-  height: 100vh;
+
+  min-width: 600px;
+  min-height: 800px;
 
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
 `;
 
 const Banner = styled.img`
+  position: fixed;
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
 
@@ -54,9 +61,8 @@ const AuthWrap = styled.main`
   flex-direction: column;
   align-items: center;
 
-  position: absolute;
-
-  margin: 100px 0 0;
+  position: relative;
+  margin: 100px 0 160px;
 
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);

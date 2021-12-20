@@ -9,6 +9,7 @@ import ConsolePage from "./pages/SharingPage/ConsolePage";
 import SharingPage from "./pages/SharingPage";
 import AuthPage from "./pages/AuthPage";
 import SignInComponent from "./components/auth/SignInComponent";
+import SignUpComponent from "./components/auth/SignUpComponent";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         </Route>
         <Route path="/auth" element={<AuthPage />}>
           <Route path="signin" element={<SignInComponent />} />
+          <Route path="signup" element={<SignUpComponent />} />
         </Route>
       </Routes>
     </>
