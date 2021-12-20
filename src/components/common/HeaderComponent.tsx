@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Assets from "src/assets";
 import { ContainerWidth1240 } from "src/styles/Container";
@@ -7,61 +7,64 @@ import styled from "styled-components";
 
 function HeaderComponent() {
   return (
-    <Wrap>
-      <ContainerWidth1240 className="header-container">
-        <LogoBlock>
-          <Link to="/">
-            <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
-          </Link>
-        </LogoBlock>
-        <Nav.Wrap>
-          <Nav.Option.Block>
-            <Nav.Option.Item>Contact Us</Nav.Option.Item>
-            <Nav.Option.Item>English</Nav.Option.Item>
-          </Nav.Option.Block>
-          <Nav.Main.Block>
-            <NavLink
-              to="/about"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <Nav.Main.Item>About Us</Nav.Main.Item>
-            </NavLink>
-            <NavLink
-              to="/information"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <Nav.Main.Item>Data Information</Nav.Main.Item>
-            </NavLink>
-            <NavLink
-              to="/sharing"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <Nav.Main.Item>
-                Data Sharing
-                <Nav.Main.DropDown>
-                  <NavLink
-                    to="/sharing"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                    end
-                  >
-                    <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
-                  </NavLink>
-                  <NavLink
-                    to="/sharing/console"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    <Nav.Main.DropDownItem>Console</Nav.Main.DropDownItem>
-                  </NavLink>
-                </Nav.Main.DropDown>
-              </Nav.Main.Item>
-            </NavLink>
-            <NavLink to="/auth/signin">
-              <Nav.Main.Item>Login</Nav.Main.Item>
-            </NavLink>
-          </Nav.Main.Block>
-        </Nav.Wrap>
-      </ContainerWidth1240>
-    </Wrap>
+    <>
+      <Wrap>
+        <ContainerWidth1240 className="header-container">
+          <LogoBlock>
+            <Link to="/">
+              <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
+            </Link>
+          </LogoBlock>
+          <Nav.Wrap>
+            <Nav.Option.Block>
+              <Nav.Option.Item>Contact Us</Nav.Option.Item>
+              <Nav.Option.Item>English</Nav.Option.Item>
+            </Nav.Option.Block>
+            <Nav.Main.Block>
+              <NavLink
+                to="/about"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                <Nav.Main.Item>About Us</Nav.Main.Item>
+              </NavLink>
+              <NavLink
+                to="/information"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                <Nav.Main.Item>Data Information</Nav.Main.Item>
+              </NavLink>
+              <NavLink
+                to="/sharing"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                <Nav.Main.Item>
+                  Data Sharing
+                  <Nav.Main.DropDown>
+                    <NavLink
+                      to="/sharing"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                      end
+                    >
+                      <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
+                    </NavLink>
+                    <NavLink
+                      to="/sharing/console"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      <Nav.Main.DropDownItem>Console</Nav.Main.DropDownItem>
+                    </NavLink>
+                  </Nav.Main.DropDown>
+                </Nav.Main.Item>
+              </NavLink>
+              <NavLink to="/auth/signin">
+                <Nav.Main.Item>Login</Nav.Main.Item>
+              </NavLink>
+            </Nav.Main.Block>
+          </Nav.Wrap>
+        </ContainerWidth1240>
+      </Wrap>
+      <Outlet />
+    </>
   );
 }
 

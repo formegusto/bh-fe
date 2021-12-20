@@ -1,4 +1,3 @@
-import { Outlet } from "react-router";
 import Assets from "src/assets";
 import BasicTemplate from "src/templates/BasicTemplate";
 
@@ -10,9 +9,7 @@ function DocumentPage() {
       titleImage={Assets.Banner.SubBanner2}
       subTitle="Document"
       subDescription="BEMS-HDMS API Server의 데이터 무결성을 위한 통신 암호화 처리과정과 API 사용법을 소개합니다."
-    >
-      <Outlet />
-    </BasicTemplate>
+    />
   );
 }
 

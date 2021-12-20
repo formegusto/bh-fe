@@ -26,7 +26,7 @@ function ImageCarousel() {
           (elNextActive as HTMLImageElement).classList.add("activating");
         }
       }
-    }, 3000);
+    }, 4500);
 
     const elBannerImages = document.querySelectorAll(".banner-image");
     elBannerImages.forEach((_) => {
@@ -86,7 +86,7 @@ const Image = styled.img`
   &.activating {
     z-index: 4;
     display: block;
-    animation: ${fadeInOutAnimation} 1.25s;
+    animation: ${fadeInOutAnimation} 1.5s;
   }
 
   &.inactivating {
