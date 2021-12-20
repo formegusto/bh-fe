@@ -90,6 +90,8 @@ const Description = styled.h3`
   font-size: 14px;
   line-height: 20px;
 
+  word-break: keep-all;
+
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
 `;
 
@@ -98,7 +100,7 @@ const SubTitle = styled.h2`
   font-size: 32px;
   line-height: 40px;
 
-  margin: 16px 0 0;
+  margin: 16px 0 4px;
 `;
 
 export default BasicTemplate;

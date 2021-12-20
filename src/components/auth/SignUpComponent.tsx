@@ -37,11 +37,11 @@ const Wrap = styled.form`
   }
 
   & > input {
-    margin: 0 0 10px;
+    margin: 0 0 16px;
   }
 
   & > .inputgroup {
-    margin: 0 0 10px;
+    margin: 0 0 16px;
   }
 
   & > .inputgroup:nth-child(4) {

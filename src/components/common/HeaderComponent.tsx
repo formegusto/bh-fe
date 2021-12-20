@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Assets from "src/assets";
 import { ContainerWidth1240 } from "src/styles/Container";
@@ -63,7 +63,6 @@ function HeaderComponent() {
           </Nav.Wrap>
         </ContainerWidth1240>
       </Wrap>
-      <Outlet />
     </>
   );
 }

@@ -34,12 +34,8 @@ const Wrap = styled.form`
     margin: 0 0 10px;
   }
 
-  & > div:last-child {
-    margin: 0 0 20px;
-  }
-
   & > button[type="submit"] {
-    margin: 30px 0 24px;
+    margin: 40px 0 30px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   }
 
