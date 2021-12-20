@@ -1,0 +1,130 @@
+import { ACHROMATIC, BLUE } from "src/styles/Palette";
+import styled from "styled-components";
+import { MdAdsClick } from "react-icons/md";
+import buildingItems, { BuildingItem } from "src/store/BuildingItems";
+
+function BuildingItemView({ name, image }: BuildingItem) {
+  return (
+    <BuildingItemStyle.Block>
+      <BuildingItemStyle.Background src={image} alt={name} />
+      <BuildingItemStyle.Shadow />
+      <BuildingItemStyle.Title>{name}</BuildingItemStyle.Title>
+    </BuildingItemStyle.Block>
+  );
+}
+
+const BuildingItemStyle = {
+  Block: styled.div`
+    position: relative;
+    width: 295px;
+    height: 295px;
+
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+
+    cursor: pointer;
+
+    &:hover {
+      & > h1 {
+        height: 100%;
+        background: rgba(38, 68, 109, 0.9);
+      }
+    }
+  `,
+  Background: styled.img`
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: 50% 50%;
+  `,
+  Shadow: styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(51, 51, 51, 0.2);
+  `,
+  Title: styled.h1`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 30px;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: ${ACHROMATIC[15]};
+    background: rgba(38, 68, 109, 0.7);
+
+    transition: 0.5s;
+  `,
+};
+
+const BuildingItemWrap = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  & > div {
+    margin-bottom: 32px;
+  }
+
+  & > div:not(:nth-child(4n + 0)) {
+    margin-right: 20px;
+  }
+`;
+
+function Buildings() {
+  return (
+    <Wrap>
+      <Title.Block>
+        <Title.Text>Buildings</Title.Text>
+        <MdAdsClick size={32} color={BLUE[1]} />
+      </Title.Block>
+      <BuildingItemWrap>
+        {buildingItems.map((_, idx) => (
+          <BuildingItemView {..._} key={idx} />
+        ))}
+      </BuildingItemWrap>
+    </Wrap>
+  );
+}
+
+const Wrap = styled.div`
+  margin: 8px 0 0;
+`;
+
+const Title = {
+  Block: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 54px;
+  `,
+  Text: styled.h1`
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: ${ACHROMATIC[3]};
+  `,
+};
+
+export default Buildings;

@@ -14,7 +14,7 @@ function AboutComponent() {
 
 const Wrap = styled.div`
   & > div {
-    margin: 64px auto 80px;
+    margin: 64px auto 0;
   }
 
   & img {

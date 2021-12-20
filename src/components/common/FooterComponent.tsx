@@ -42,6 +42,8 @@ function FooterComponent() {
 
 const Wrap = styled.div`
   background-color: #5e5e5e;
+
+  margin: 88px 0 0;
 `;
 
 const OrganizationBar = {
