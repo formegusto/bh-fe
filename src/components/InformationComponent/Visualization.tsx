@@ -1,40 +1,88 @@
 import React from "react";
-import { ACHROMATIC } from "src/styles/Palette";
+import { ACHROMATIC, GRAPHCOLORS } from "src/styles/Palette";
 import styled from "styled-components";
 
 type Props = {
   title: string;
   id: number;
+  interval: number;
+  label: string;
+  startTime: number;
 };
 
-function VisualItem({ title, id }: Props) {
+function VisualItem({ title, id, interval, label, startTime }: Props) {
   const visualRef = React.useRef<HTMLCanvasElement>(null);
   const chartRef = React.useRef<any>(null);
+
+  const labels = React.useRef<any>(
+    Array.from({ length: 10 }).map(
+      (_, idx) => `${startTime}:0:${0 + (interval / 1000) * idx}`
+    )
+  );
+
+  // 초기 랜덤값 10개치 생성
+
   React.useEffect(() => {
     if (visualRef) {
       const Chart = (window as any).Chart;
       const ctx = visualRef.current?.getContext("2d");
+      const ranColorIdx = Math.floor(Math.random() * GRAPHCOLORS.length);
       const chart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [1, 2, 3],
+          labels: labels.current,
           datasets: [
             {
-              data: [1, 2, 3],
+              label: label,
+              data: Array.from({ length: 10 }).map(() => Math.random() * 30),
+              borderColor: GRAPHCOLORS[ranColorIdx],
+              backgroundColor: GRAPHCOLORS[ranColorIdx],
             },
           ],
+        },
+        options: {
+          animation: {
+            duration: 500,
+          },
         },
       });
       chartRef.current = chart;
     }
-  }, []);
+  }, [title, label]);
 
-  const addData = React.useCallback(() => {
-    console.log(chartRef.current);
-    chartRef.current.data.labels.push(4);
-    chartRef.current.data.datasets[0].data.push(4);
-    chartRef.current.update();
-  }, []);
+  React.useEffect(
+    () => {
+      setInterval(() => {
+        console.log(chartRef.current);
+        const labels = chartRef.current.data.labels;
+        const lastTime = labels[labels.length - 1].split(":")[2];
+        const lastTimeNumber = parseInt(lastTime);
+        let nextTime = lastTimeNumber + interval / 1000;
+
+        let timeStr = `${labels[labels.length - 1].split(":")[0]}`;
+        if (nextTime > 60) {
+          const lastMinute = labels[labels.length - 1].split(":")[1];
+          const nextMinute = parseInt(lastMinute + 1);
+
+          nextTime -= 60;
+
+          timeStr += `:${nextMinute}:${nextTime}`;
+        } else {
+          const lastMinute = labels[labels.length - 1].split(":")[1];
+          timeStr += `:${lastMinute}:${nextTime}`;
+        }
+
+        chartRef.current.data.labels.shift();
+        chartRef.current.data.labels.push(timeStr);
+        chartRef.current.data.datasets[0].data.shift();
+        chartRef.current.data.datasets[0].data.push(Math.random() * 30);
+
+        chartRef.current.update();
+      }, interval);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <ItemStyle.Block>
@@ -42,7 +90,6 @@ function VisualItem({ title, id }: Props) {
       <ItemStyle.VisualBlock>
         <ItemStyle.Visual ref={visualRef} />
       </ItemStyle.VisualBlock>
-      <button onClick={addData}>테스트 번튼</button>
     </ItemStyle.Block>
   );
 }
@@ -86,9 +133,34 @@ const ItemStyle = {
 function Visualization() {
   return (
     <Wrap>
-      <VisualItem title="온도 센서" id={1} />
-      <VisualItem title="거주자 수 센서" id={2} />
-      <VisualItem title="ACE 라운지 게이트웨이" id={3} />
+      <VisualItem
+        title="온도 센서"
+        id={1}
+        interval={1500}
+        label="Temperature"
+        startTime={3}
+      />
+      <VisualItem
+        title="습도 센서"
+        id={1}
+        interval={5000}
+        label="Humidity"
+        startTime={10}
+      />
+      <VisualItem
+        title="조도 센서"
+        id={1}
+        interval={3000}
+        label="Humidity"
+        startTime={10}
+      />
+      <VisualItem
+        title="거주자 수 센서"
+        id={2}
+        interval={2000}
+        label="ResidentCount"
+        startTime={2}
+      />
     </Wrap>
   );
 }
