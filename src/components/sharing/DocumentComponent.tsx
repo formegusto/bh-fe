@@ -5,6 +5,7 @@ import CardGroup from "../common/CardGroup";
 import BasicCol from "../common/tableItems/BasicCol";
 import BasicRow from "../common/tableItems/BasicRow";
 import BasicTable from "../common/tableItems/BasicTable";
+import TitleCode from "../common/TitleCode";
 
 function DocumentComponent() {
   return (
@@ -334,13 +335,73 @@ function DocumentComponent() {
                 <BasicCol size={180}>500 (Internal Server Error)</BasicCol>
                 <BasicCol
                   isStrech
-                >{` 요청 정보는 정상적인 상태이지만, 서버에서 처리하지 못 한 경우입니다.
+                >{`요청 정보는 정상적인 상태이지만, 서버에서 처리하지 못 한 경우입니다.
 
  * 관리자에게 문의 해주세요.`}</BasicCol>
               </BasicRow>
             </BasicTable>
           </Card>
-          <Card title="Example"></Card>
+          <Card title="Example">
+            <TitleCode
+              title="Thinking"
+              contents="건물 ID 1번을 가지고 있는 하늘아파트의(buildingId), 건물의 호 ID 1번을 가지고 있는 101호의(unitId) 2021년 12월 18일의 13시 5분부터(startDate=2021-12-18T13:05) 13시 10분까지의(endDate=2021-12-18T13:10) 온도,습도,조도 기록정보를 원한다."
+            />
+            <TitleCode
+              title="Request"
+              contents="curl -x “GET” http://{bems-hdms-domain}/api/bems-hdms/1/1?include=temperature,humidity,lux&startDate=2021-12-18T13:05&end Date=2021-12-18T13:10 -H “Accept:text/plain” -H “Auth rization:{API KEY}”"
+            />
+            <TitleCode
+              title="Encrypt Response Body"
+              contents={
+                'Ë7õnµMÉ¦H\u001a\nãÁI`ï\'ø7\u0010\u0019\u0000©!%ÈèW¦­$zR\n²k\u001a{\u001cµ8çôÎ\u0013ÝnhßI\u001fcnÓòL-¨=L\u0016G$ê\rØ\u00164Ã*Á¦\nóÆ6gí\u0005z°EÑ¤\u0005½\u0013ÓIÿP­ÌáÕÔ´÷¬Âg\u0011m±Êy\u001dÌ³\u0019Yí%6\u0005f3s¡æcOí°Æl È¥\u0018ùª\u0012á\b\u0013\u0013±Í[üOVÉWáÇñÓî\u0014å\u0013:\u0010Á\u0005ü\u0000°¢ÿ$8LrÎý|¹Ût²oaiÃóö÷àÆ*aøøûÓ\u001cÄì)\u0013G+D4©NýrläYj§µÞ»=ÈåA\u0019×¾äÌ\u001d+\u0005ý²¾½¦Ü©N4äÈ\u0011t\u001fÀQóFv­Ðé9)\n\u000eôG+D4©NýrläYj§µÞ\u0010wb¤>ò"EXÑ\r×¸gÁVð<a\r®i«µ\u001aÃmîÀQóFv­Ðé9)\n\u000eôG+D4©NýrläYj§µÞ¶cøQ\u0019á\u0001Ø\u0004V]<\u0012\u0000ï}O\u0019ù±tk¼êÀQóFv­Ðé9)\n\u000eôG+D4©NýrläYj§µÞ?×ä¹d²`\\Õ¢\u001d\u0012\u0015¨\u001dÉ3IU¾\\Ý\t¤E÷\u0003\u0011ZÀQóFv­Ðé9)\n\u000eôG+D4©NýrläYj§µÞnT©íµ´£hz\u0019:\u000bM,ù\u0016¼¦"kÓó\u001f<±Ùu@\u0004ÀQóFv­Ðé9)\n\u000eôG+D4©NýrläYj§µÞp\u0011ßýØfüë\u001a~ÎJ£\byßÔ¶]kñ÷Î°¯KÂÛÀQóFv­ ...'
+              }
+            />
+            <TitleCode
+              title="Decrypt Response Body"
+              contents={`{
+                "status": true,
+                "query": {
+                      "include": "temperature,humidity,lux",
+                      "startDate": "2021-12-18T13:05",
+                      "endDate": "2021-12-18T13:10"
+                },
+                "data": {
+                      "unit": {
+                            "name": "101호",
+                            "id": 1,
+                                  "sensors": [
+                                          {
+                                              "name": "온도",
+                                              "id": 1,
+                                                    "timeReports": [
+                                                          {
+                                                                "createdAt": "2021-12-18T13:05:12.000Z",
+                                                                "temperature": "30.467"
+                                                          },
+                                                          // …
+                                                          {
+                                                                "createdAt": "2021-12-18T13:09:58.000Z",
+                                                                "temperature": "28.664"
+                                                          }
+                                                    ]
+                                        },
+                                        // …`}
+            />
+            <TitleCode
+              title="Error"
+              contents={`{
+                "status": false,
+                "query": {
+                      "include": "temperature,humidity,lux",
+                      "startDate": "2021-12-1813:05",
+                        "endDate": "2021-12-18T13:10"
+                },
+                "error": {
+                      "message": "startDate 가 ISO8601 형식에 맞지 않습니다."
+                }
+          }`}
+            />
+          </Card>
         </CardGroup>
       </Card>
     </Wrap>
@@ -348,6 +409,10 @@ function DocumentComponent() {
 }
 
 const Wrap = styled.div`
+  & .titlecode {
+    margin-bottom: 16px;
+  }
+
   & .table {
     padding: 0 8px;
     margin-top: 16px;

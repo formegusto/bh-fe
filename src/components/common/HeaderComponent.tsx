@@ -75,6 +75,7 @@ const Wrap = styled.header`
   left: 0;
 
   background-color: ${ACHROMATIC[15]};
+  box-shadow: 0 0 2px 0;
 
   z-index: 255;
 
