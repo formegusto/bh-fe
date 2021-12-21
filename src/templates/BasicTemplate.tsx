@@ -27,7 +27,9 @@ function BasicTemplate({
         <BackShadow>
           <ContainerWidth1240>
             <Title>{title}</Title>
-            <Description>{description}</Description>
+            <Description>
+              <pre>{description}</pre>
+            </Description>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
             {subDescription && <Description>{subDescription}</Description>}
           </ContainerWidth1240>
@@ -80,7 +82,7 @@ const Title = styled.h1`
 
   text-transform: uppercase;
 
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 `;
 
 const Description = styled.h3`
@@ -90,9 +92,12 @@ const Description = styled.h3`
   font-size: 14px;
   line-height: 20px;
 
-  word-break: keep-all;
-
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
+
+  & > pre {
+    white-space: pre-wrap;
+    word-break: keep-all;
+  }
 `;
 
 const SubTitle = styled.h2`

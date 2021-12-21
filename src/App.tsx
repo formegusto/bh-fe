@@ -3,13 +3,13 @@ import MainPage from "./pages/MainPage";
 import { Route, Routes } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import InformationPage from "./pages/InformationPage";
-import DocumentPage from "./pages/SharingPage/DocumentPage";
-import ConsolePage from "./pages/SharingPage/ConsolePage";
 import SharingPage from "./pages/SharingPage";
 import AuthPage from "./pages/AuthPage";
 import SignInComponent from "./components/auth/SignInComponent";
 import SignUpComponent from "./components/auth/SignUpComponent";
 import RootPage from "./pages";
+import DocumentComponent from "./components/sharing/DocumentComponent";
+import ConsoleComponent from "./components/sharing/ConsoleComponent";
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="information" element={<InformationPage />} />
           <Route path="sharing" element={<SharingPage />}>
-            <Route index element={<DocumentPage />} />
-            <Route path="console" element={<ConsolePage />} />
+            <Route index element={<DocumentComponent />} />
+            <Route path="console" element={<ConsoleComponent />} />
           </Route>
         </Route>
         <Route path="/auth" element={<AuthPage />}>

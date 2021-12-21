@@ -1,38 +1,48 @@
 import React from "react";
 import { ACHROMATIC } from "src/styles/Palette";
 import styled from "styled-components";
-import { Line } from "react-chartjs-3";
 
 type Props = {
   title: string;
   id: number;
 };
 
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "Dataset of Months",
-
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-  ],
-};
-
 function VisualItem({ title, id }: Props) {
-  React.useEffect(
-    () => {
-      console.log(Line);
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const visualRef = React.useRef<HTMLCanvasElement>(null);
+  const chartRef = React.useRef<any>(null);
+  React.useEffect(() => {
+    if (visualRef) {
+      const Chart = (window as any).Chart;
+      const ctx = visualRef.current?.getContext("2d");
+      const chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [1, 2, 3],
+          datasets: [
+            {
+              data: [1, 2, 3],
+            },
+          ],
+        },
+      });
+      chartRef.current = chart;
+    }
+  }, []);
+
+  const addData = React.useCallback(() => {
+    console.log(chartRef.current);
+    chartRef.current.data.labels.push(4);
+    chartRef.current.data.datasets[0].data.push(4);
+    chartRef.current.update();
+  }, []);
 
   return (
     <ItemStyle.Block>
       <ItemStyle.Title>{title}</ItemStyle.Title>
       <ItemStyle.VisualBlock>
-        <Line data={data} />
+        <ItemStyle.Visual ref={visualRef} />
       </ItemStyle.VisualBlock>
+      <button onClick={addData}>테스트 번튼</button>
     </ItemStyle.Block>
   );
 }
