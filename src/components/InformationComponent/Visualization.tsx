@@ -130,13 +130,25 @@ const ItemStyle = {
   `,
 };
 
-function Visualization() {
+type VisualsProps = {
+  changeViewVisual: (status: boolean) => void;
+};
+
+function Visualization({ changeViewVisual }: VisualsProps) {
+  const refWrap = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (refWrap) {
+      if (refWrap.current) changeViewVisual(true);
+    }
+  }, [changeViewVisual]);
+
   return (
-    <Wrap>
+    <Wrap ref={refWrap} id="visuals-wrap">
       <VisualItem
         title="온도 센서"
         id={1}
-        interval={1500}
+        interval={5500}
         label="Temperature"
         startTime={3}
       />
@@ -150,14 +162,14 @@ function Visualization() {
       <VisualItem
         title="조도 센서"
         id={1}
-        interval={3000}
+        interval={7500}
         label="Humidity"
         startTime={10}
       />
       <VisualItem
         title="거주자 수 센서"
         id={2}
-        interval={2000}
+        interval={8000}
         label="ResidentCount"
         startTime={2}
       />

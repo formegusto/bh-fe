@@ -1,11 +1,15 @@
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
-import styled from "styled-components";
+import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
 import buildingItems, { BuildingItem } from "src/store/BuildingItems";
 
-function BuildingItemView({ name, image }: BuildingItem) {
+function BuildingItemView({
+  name,
+  image,
+  ...htmlProps
+}: StyledComponentProps<"div", {}, any, any> & BuildingItem) {
   return (
-    <BuildingItemStyle.Block>
+    <BuildingItemStyle.Block {...htmlProps}>
       <BuildingItemStyle.Background src={image} alt={name} />
       <BuildingItemStyle.Shadow />
       <BuildingItemStyle.Title>{name}</BuildingItemStyle.Title>
@@ -24,10 +28,19 @@ const BuildingItemStyle = {
 
     cursor: pointer;
 
-    &:hover {
+    &:not(.select) {
+      &:hover {
+        & > h1 {
+          height: 100%;
+          background: rgba(38, 68, 109, 0.9);
+        }
+      }
+    }
+
+    &.select {
       & > h1 {
         height: 100%;
-        background: rgba(38, 68, 109, 0.9);
+        background: rgb(38, 68, 109);
       }
     }
   `,
@@ -89,7 +102,12 @@ const BuildingItemWrap = styled.div`
   }
 `;
 
-function Buildings() {
+type Props = {
+  selBuilding: number | null;
+  changeSelBuilding: (idx: number) => void;
+};
+
+function Buildings({ selBuilding, changeSelBuilding }: Props) {
   return (
     <Wrap>
       <Title.Block>
@@ -98,7 +116,12 @@ function Buildings() {
       </Title.Block>
       <BuildingItemWrap>
         {buildingItems.map((_, idx) => (
-          <BuildingItemView {..._} key={idx} />
+          <BuildingItemView
+            {..._}
+            key={idx}
+            className={`${selBuilding && selBuilding === idx ? "select" : ""} `}
+            onClick={() => changeSelBuilding(idx)}
+          />
         ))}
       </BuildingItemWrap>
     </Wrap>

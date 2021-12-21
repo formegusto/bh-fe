@@ -1,15 +1,19 @@
-import styled from "styled-components";
+import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import UnitItems from "src/store/UnitItems";
+import React from "react";
 
 type Props = {
   name: string;
 };
 
-function UnitItemView({ name }: Props) {
+function UnitItemView({
+  name,
+  ...htmlProps
+}: StyledComponentProps<"div", {}, any, any> & Props) {
   return (
-    <UnitItemStyle.Block>
+    <UnitItemStyle.Block {...htmlProps}>
       <UnitItemStyle.Title>{name}</UnitItemStyle.Title>
     </UnitItemStyle.Block>
   );
@@ -29,7 +33,16 @@ const UnitItemStyle = {
 
     cursor: pointer;
 
-    &:hover {
+    &:not(.select) {
+      &:hover {
+        border-color: ${BLUE[0]};
+        & > h1 {
+          color: ${BLUE[0]};
+        }
+      }
+    }
+
+    &.select {
       border-color: ${BLUE[0]};
       & > h1 {
         color: ${BLUE[0]};
@@ -59,16 +72,39 @@ const UnitItemWrap = styled.div`
   }
 `;
 
-function Units() {
+type UnitsProps = {
+  selUnit: number | null;
+  changeViewUnits: (status: boolean) => void;
+  changeSelUnit: (idx: number) => void;
+};
+
+function Units({ selUnit, changeViewUnits, changeSelUnit }: UnitsProps) {
+  const refWrap = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (refWrap) {
+      if (refWrap.current) {
+        setTimeout(() => {
+          changeViewUnits(true);
+        });
+      }
+    }
+  }, [changeViewUnits]);
+
   return (
-    <Wrap>
+    <Wrap id="units-wrap" ref={refWrap}>
       <Title.Block>
         <Title.Text>Units</Title.Text>
         <MdAdsClick size={32} color={BLUE[1]} />
       </Title.Block>
       <UnitItemWrap>
         {UnitItems.map((_, idx) => (
-          <UnitItemView name={_} key={idx} />
+          <UnitItemView
+            name={_}
+            key={idx}
+            className={`${selUnit === idx ? "select" : ""}`}
+            onClick={() => changeSelUnit(idx)}
+          />
         ))}
       </UnitItemWrap>
     </Wrap>
