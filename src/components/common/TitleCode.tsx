@@ -3,7 +3,7 @@ import { ACHROMATIC } from "src/styles/Palette";
 import styled, { StyledComponentProps } from "styled-components";
 
 type ConfigProps = {
-  title: string;
+  title?: string;
   contents: string;
 };
 
@@ -17,7 +17,7 @@ interface Props
 function TitleCode({ title, contents, className, ...htmlProps }: Props) {
   return (
     <Code className={`titlecode ${className ? className : ""}`} {...htmlProps}>
-      <Title>{title}</Title>
+      {title && <Title>{title}</Title>}
       <Contents>
         <pre>{contents}</pre>
       </Contents>

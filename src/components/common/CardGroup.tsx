@@ -26,7 +26,7 @@ const Group = styled.div<StyleProps>`
   ${(props) =>
     props.direction === "row" &&
     css`
-      & .card,
+      & > .card,
       .cardgroup {
         width: calc(50% - 20px);
       }
@@ -40,12 +40,12 @@ const Group = styled.div<StyleProps>`
   ${(props) =>
     props.direction === "column" &&
     css`
-      & .card,
+      & > .card,
       .cardgroup {
         width: 100%;
       }
 
-      & .card:not(:last-child),
+      & > .card:not(:last-child),
       .cardgroup:not(:last-child) {
         margin-bottom: 20px;
       }
