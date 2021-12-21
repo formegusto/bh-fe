@@ -16,9 +16,12 @@ function CardGroup({ children, direction = "row" }: Props) {
 }
 
 const Group = styled.div<StyleProps>`
-  display: flex;
   width: 100%;
+  display: flex;
+
   flex-direction: ${(props) => props.direction};
+  /* justify-content: flex-start;
+  align-items: flex-start; */
 
   ${(props) =>
     props.direction === "row" &&

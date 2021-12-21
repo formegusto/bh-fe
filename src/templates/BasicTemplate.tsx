@@ -67,7 +67,7 @@ const BackShadow = styled.div`
   width: 100%;
 
   background: linear-gradient(90deg, #333333 0%, rgba(51, 51, 51, 0) 100%);
-  padding: 40px 0;
+  padding: 56px 0 72px;
   box-sizing: border-box;
 
   font-style: normal;

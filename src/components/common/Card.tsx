@@ -2,7 +2,7 @@ import { ACHROMATIC } from "src/styles/Palette";
 import styled, { css, StyledComponentProps } from "styled-components";
 
 type ConfigProps = {
-  title: string;
+  title?: string;
   description?: string;
   code?: string;
 };
@@ -26,10 +26,12 @@ function Card({
 }: React.PropsWithChildren<Props>) {
   return (
     <Wrap className={`card ${className ? className : ""}`} {...htmlProps}>
-      <Title>{title}</Title>
-      <Desc>
-        <pre>{description}</pre>
-      </Desc>
+      {title && <Title>{title}</Title>}
+      {description && (
+        <Desc>
+          <pre>{description}</pre>
+        </Desc>
+      )}
       {children}
     </Wrap>
   );
