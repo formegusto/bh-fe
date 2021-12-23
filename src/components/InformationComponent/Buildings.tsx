@@ -1,7 +1,7 @@
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
-import buildingItems, { BuildingItem } from "src/store/BuildingItems";
+import buildingItems, { BuildingItem } from "src/store/testDatas/BuildingItems";
 
 function BuildingItemView({
   name,

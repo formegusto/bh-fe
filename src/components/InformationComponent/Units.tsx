@@ -1,7 +1,7 @@
 import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
-import UnitItems from "src/store/UnitItems";
+import UnitItems from "src/store/testDatas/UnitItems";
 import React from "react";
 
 type Props = {

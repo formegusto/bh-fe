@@ -3,12 +3,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore } from "redux";
+import rootReducer from "./store";
+import { Provider } from "react-redux";
+
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
-  <Router>
-    <ScrollToTop />
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <ScrollToTop />
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
 
