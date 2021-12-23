@@ -1,86 +1,154 @@
 import { Button, TextField } from "@material-ui/core";
+import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
+import { RequestSignUp } from "src/store/auth/types";
 import styled from "styled-components";
 import InputGroup from "../common/formItems/InputGroup";
 import Rule from "../common/Rule";
 
-function SignUpComponent() {
-  return (
-    <Wrap>
-      <TextField
-        className="input"
-        id="outlined-basic"
-        label="username"
-        variant="outlined"
-        fullWidth
-        required
-      />
-      <InputGroup>
-        <TextField
-          id="outlined-basic"
-          type="password"
-          label="password"
-          variant="outlined"
-          fullWidth
-          required
-        />
-        <TextField
-          id="outlined-basic"
-          type="password"
-          label="password confirm"
-          variant="outlined"
-          fullWidth
-          required
-        />
-      </InputGroup>
-      <InputGroup>
-        <TextField
-          id="outlined-basic"
-          label="name"
-          variant="outlined"
-          fullWidth
-          required
-        />
-        <TextField
-          id="outlined-basic"
-          label="organization"
-          variant="outlined"
-          fullWidth
-          required
-        />
-      </InputGroup>
-      <InputGroup>
-        <TextField
-          id="outlined-basic"
-          type="email"
-          label="email"
-          variant="outlined"
-          fullWidth
-          required
-        />
-        <TextField
-          id="outlined-basic"
-          label="phone"
-          variant="outlined"
-          fullWidth
-          required
-        />
-      </InputGroup>
-      <Rule title="이용약관">{`제1조 목적
-본 약관은 한국지능정보사회진흥원(이하 ‘운영기관’라 한다)에서 운영하는 BEMS-HDMS 서비스를 이용함에 있어 이용조건 및 절차, 운영기관과 이용자의 권리·의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
+type Props = {
+  control: Control<RequestSignUp, object>;
+  onSubmit: ReturnType<UseFormHandleSubmit<RequestSignUp>>;
+};
 
+function SignUpComponent({ control, onSubmit }: Props) {
+  return (
+    <Wrap onSubmit={onSubmit}>
+      <Controller
+        name="username"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            className="input"
+            id="outlined-basic"
+            label="username"
+            variant="outlined"
+            fullWidth
+            required
+            {...field}
+          />
+        )}
+      />
+
+      <InputGroup>
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              type="password"
+              label="password"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          name="passwordConfirm"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              type="password"
+              label="password confirm"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+      </InputGroup>
+      <InputGroup>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              label="name"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          name="organization"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              label="organization"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+      </InputGroup>
+      <InputGroup>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              type="email"
+              label="email"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          name="phone"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              label="phone"
+              variant="outlined"
+              fullWidth
+              required
+              {...field}
+            />
+          )}
+        />
+      </InputGroup>
+      <Controller
+        name="termsOfUse"
+        control={control}
+        render={({ field }) => (
+          <Rule title="이용약관" {...field}>{`제1조 목적
+본 약관은 한국지능정보사회진흥원(이하 ‘운영기관’라 한다)에서 운영하는 BEMS-HDMS 서비스를 이용함에 있어 이용조건 및 절차, 운영기관과 이용자의 권리·의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
+        
 제2조 용어의 정의
 본 약관에서 사용하는 용어의 정의는 다음과 같습니다. 본 약관에서 정의하지 않은 것은 관련 법령 및 서비스별 안내에서 정하는 바에 따르며, 그 외에는 일반 관례에 따른다.
-· 공유서비스 : 공유서비스란 인공지능 서비스에 활용할 수 있는 데이터, SW, 컴퓨팅 자원 등 우수한 정보자원을 공공 및 민간, 법인 및 개인이 원활하게 활용할 수 있도록 다양한 형식과 방식으로 제공하는 것을 말한다.
-· 제공기관 : 제공기관은 기관이 보유하고 있는 우수한 정보자원을 지정된 관리시스템을 통해 활용 가능한 공유서비스의 방식으로 개방, 제공하는 행정기관, 공공기 및 민간 개인과 법인 등을 말한다.
-· 활용기관 : 활용기관은 제공된 공유서비스를 직접 이용하거나 새로운 창작물의 일부로 재가공하여 배포하는 행정기관 등과 개인 및 법인을 말한다.
-· 행정기관 등 : 행정기관 및 공공기관을 행정기관 등 이라 말한다.
-· 회원 : BEMS-HDMS 에 기관 및 기업, 개인 정보를 제공하여 제공기관 또는 활용기관으로 등록한 자로서 BEMS-HDMS 에서 제공하는 서비스를 이용할 수 있는 자.
-· 비밀번호 : 이용자와 회원ID가 일치하는지 확인하고 통신상의 자신의 비밀 보호를 위하여 이용자 자신이 선정한 문자와 숫자의 조합.
+ · 공유서비스 : 공유서비스란 인공지능 서비스에 활용할 수 있는 데이터, SW, 컴퓨팅 자원 등 우수한 정보자원을 공공 및 민간, 법인 및 개인이 원활하게 활용할 수 있도록 다양한 형식과 방식으로 제공하는 것을 말한다.
+ · 제공기관 : 제공기관은 기관이 보유하고 있는 우수한 정보자원을 지정된 관리시스템을 통해 활용 가능한 공유서비스의 방식으로 개방, 제공하는 행정기관, 공공기 및 민간 개인과 법인 등을 말한다.
+ · 활용기관 : 활용기관은 제공된 공유서비스를 직접 이용하거나 새로운 창작물의 일부로 재가공하여 배포하는 행정기관 등과 개인 및 법인을 말한다.
+ · 행정기관 등 : 행정기관 및 공공기관을 행정기관 등 이라 말한다.
+ · 회원 : BEMS-HDMS 에 기관 및 기업, 개인 정보를 제공하여 제공기관 또는 활용기관으로 등록한 자로서 BEMS-HDMS 에서 제공하는 서비스를 이용할 수 있는 자.
+ · 비밀번호 : 이용자와 회원ID가 일치하는지 확인하고 통신상의 자신의 비밀 보호를 위하여 이용자 자신이 선정한 문자와 숫자의 조합.
+
 제3조 약관의 효력과 변경
-1. BEMS-HDMS는 귀하가 본 약관 내용에 동의하는 경우, AI 허브의 서비스 제공 행위 및 귀하의 서비스 사용 행위에 본 약관이 우선적으로 적용됩니다.
-`}</Rule>
-      <Rule title="개인정보 취급방침">
-        {`제1조 (개인정보의 처리목적)
+ 1. BEMS-HDMS는 귀하가 본 약관 내용에 동의하는 경우, BEMS-HDMS의 서비스 제공 행위 및 귀하의 서비스 사용 행위에 본 약관이 우선적으로 적용됩니다.
+        `}</Rule>
+        )}
+      />
+      <Controller
+        name="privacyPolicy"
+        control={control}
+        render={({ field }) => (
+          <Rule title="개인정보 취급방침" {...field}>
+            {`제1조 (개인정보의 처리목적)
   ① BEMS-HDMS 는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
    1. 홈페이지 회원 가입 및 관리
  회원 가입의사 확인, 회원제 서비스 제공에 따른 본인 식별·인증, 회원자격 유지·관리, 제한적 본인확인제 시행에 따른 본인확인, 서비스 부정이용 방지, 만 14세 미만 아동의 개인정보 처리시 법정대리인의 동의여부 확인, 각종 고지·통지, 고충처리 등을 목적으로 개인정보를 처리합니다.
@@ -94,7 +162,10 @@ function SignUpComponent() {
 ② 각각의 개인정보 처리 및 보유 기간은 다음과 같습니다.
 1. 홈페이지 회원 가입 및 관리 : 회원가입기간(탈퇴후 즉시 파기)
 `}
-      </Rule>
+          </Rule>
+        )}
+      />
+
       <Button
         variant="contained"
         color="primary"

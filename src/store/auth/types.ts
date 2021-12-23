@@ -16,6 +16,8 @@ export interface RequestSignUp extends RequestSignIn {
   organization: string;
   email: string;
   phone: string;
+  termsOfUse: boolean;
+  privacyPolicy: boolean;
 }
 
 // redux action type

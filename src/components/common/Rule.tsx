@@ -1,17 +1,15 @@
 import { Checkbox, FormControlLabel, Paper } from "@material-ui/core";
+import { ControllerRenderProps } from "react-hook-form";
 import { ACHROMATIC } from "src/styles/Palette";
-import styled, { StyledComponentProps } from "styled-components";
+import styled from "styled-components";
 
 type ConfigProps = {
   title: string;
-  checkBoxConfig?: StyledComponentProps<"input", any, {}, any>;
 };
 
-function Rule({
-  title,
-  children,
-  checkBoxConfig,
-}: React.PropsWithChildren<ConfigProps>) {
+interface Props extends ControllerRenderProps, ConfigProps {}
+
+function Rule({ title, children, ...field }: React.PropsWithChildren<Props>) {
   return (
     <Wrap className="rule">
       <Title>{title}</Title>
@@ -19,7 +17,7 @@ function Rule({
         <pre>{children}</pre>
       </Paper>
       <FormControlLabel
-        control={<Checkbox name="checkedB" color="primary" required />}
+        control={<Checkbox color="primary" required {...field} />}
         label="동의"
       />
     </Wrap>

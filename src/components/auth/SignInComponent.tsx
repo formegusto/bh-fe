@@ -1,25 +1,46 @@
 import { Button, TextField } from "@material-ui/core";
+import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { RequestSignIn } from "src/store/auth/types";
 import { BLUE } from "src/styles/Palette";
 import styled from "styled-components";
 
-function SignInComponent() {
+type Props = {
+  control: Control<RequestSignIn, object>;
+  onSubmit: ReturnType<UseFormHandleSubmit<RequestSignIn>>;
+};
+
+function SignInComponent({ control, onSubmit }: Props) {
   return (
-    <Wrap>
-      <TextField
-        id="outlined-basic"
-        label="username"
-        variant="outlined"
-        fullWidth
-        required
+    <Wrap onSubmit={onSubmit}>
+      <Controller
+        name="username"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            id="outlined-basic"
+            label="username"
+            variant="outlined"
+            fullWidth
+            required
+            {...field}
+          />
+        )}
       />
-      <TextField
-        id="outlined-basic"
-        label="password"
-        type="password"
-        variant="outlined"
-        fullWidth
-        required
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            id="outlined-basic"
+            label="password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            required
+            {...field}
+          />
+        )}
       />
       <Button
         variant="contained"
