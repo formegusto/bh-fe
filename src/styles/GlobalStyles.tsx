@@ -58,6 +58,10 @@ const GlobalStyles = createGlobalStyle`
     a {
         text-decoration: none;
     }
+
+    .MuiOutlinedInput-root fieldset {
+        border-radius: 0;
+    }
 `;
 
 export default GlobalStyles;

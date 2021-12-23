@@ -1,22 +1,35 @@
+import { Button, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { BLUE } from "src/styles/Palette";
 import styled from "styled-components";
-import BasicButton from "../common/formItems/BasicButton";
-import BasicTextInput from "../common/formItems/BasicTextInput";
 
 function SignInComponent() {
   return (
     <Wrap>
-      <BasicTextInput type="text" labelText="username" id="username" isBlock />
-      <BasicTextInput
-        type="password"
-        labelText="password"
-        id="password"
-        isBlock
+      <TextField
+        id="outlined-basic"
+        label="username"
+        variant="outlined"
+        fullWidth
+        required
       />
-      <BasicButton type="submit" isBlock>
+      <TextField
+        id="outlined-basic"
+        label="password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        required
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        size="large"
+        fullWidth
+      >
         Sign In
-      </BasicButton>
+      </Button>
       <LinkText to="/auth/signup">Don’t have an account? Sign Up</LinkText>
       <LinkText to="/auth/find">Forgot Password?</LinkText>
     </Wrap>
@@ -31,16 +44,16 @@ const Wrap = styled.form`
   }
 
   & > div {
-    margin: 0 0 10px;
+    margin: 0 0 20px;
   }
 
   & > button[type="submit"] {
-    margin: 40px 0 30px;
+    margin: 20px 0 30px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   }
 
   & > a:not(:last-child) {
-    margin: 0 0 8px;
+    margin: 0 0 12px;
   }
 `;
 

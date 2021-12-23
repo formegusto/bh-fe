@@ -1,6 +1,6 @@
+import { Checkbox, FormControlLabel, Paper } from "@material-ui/core";
 import { ACHROMATIC } from "src/styles/Palette";
 import styled, { StyledComponentProps } from "styled-components";
-import BasicCheckBox from "./formItems/BasicCheckBox";
 
 type ConfigProps = {
   title: string;
@@ -15,12 +15,13 @@ function Rule({
   return (
     <Wrap className="rule">
       <Title>{title}</Title>
-      <Description>
+      <Paper variant="outlined" square>
         <pre>{children}</pre>
-      </Description>
-      <BasicCheckBox id="checkBox" {...checkBoxConfig}>
-        동의
-      </BasicCheckBox>
+      </Paper>
+      <FormControlLabel
+        control={<Checkbox name="checkedB" color="primary" required />}
+        label="동의"
+      />
     </Wrap>
   );
 }
@@ -31,11 +32,34 @@ const Wrap = styled.div`
   width: 100%;
   flex-direction: column;
 
-  & > .checkbox-wrap {
+  & > .MuiFormControlLabel-root {
     display: flex;
     justify-content: flex-end;
+  }
 
-    padding: 0 8px 8px;
+  & > .MuiPaper-root,
+  .MuiPaper-outlined {
+    width: 100%;
+    height: 400px;
+
+    border: 1px solid ${ACHROMATIC[10]};
+    background: ${ACHROMATIC[15]};
+    color: ${ACHROMATIC[3]};
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    overflow-y: scroll;
+
+    & > pre {
+      width: 100%;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    padding: 20px;
+    box-sizing: border-box;
   }
 `;
 
@@ -48,25 +72,6 @@ const Title = styled.h1`
   color: ${ACHROMATIC[3]};
 
   padding: 8px;
-`;
-
-const Description = styled.p`
-  width: 100%;
-  height: 400px;
-
-  border: 1px solid ${ACHROMATIC[9]};
-  background: ${ACHROMATIC[15]};
-
-  margin: 0 0 10px;
-
-  & > pre {
-    width: 100%;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  padding: 20px;
-  box-sizing: border-box;
 `;
 
 export default Rule;

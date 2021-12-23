@@ -1,7 +1,9 @@
+import { createTheme } from "@material-ui/core";
+import { indigo, pink } from "@material-ui/core/colors";
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Assets from "src/assets";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 const BANNERS = [
   Assets.Banner.Banner1Darker,
@@ -10,22 +12,45 @@ const BANNERS = [
   Assets.Banner.Banner4Darker,
 ];
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: indigo[500],
+    },
+    error: {
+      main: pink[500],
+    },
+  },
+});
+
 function AuthPage() {
   const [bannerIdx, setBannerIdx] = React.useState<number | null>(null);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const idx = Math.floor(Math.random() * 4);
     setBannerIdx(idx);
   }, []);
 
+  const onSubmit = React.useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+
+      navigate("/");
+    },
+    [navigate]
+  );
+
   return (
     <Wrap>
       {bannerIdx !== null && <Banner src={BANNERS[bannerIdx]} alt="banner" />}
-      <AuthWrap>
+      <AuthWrap onSubmit={onSubmit}>
         <Link to="/">
           <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
         </Link>
-        <Outlet />
+        <ThemeProvider theme={theme}>
+          <Outlet />
+        </ThemeProvider>
       </AuthWrap>
     </Wrap>
   );
