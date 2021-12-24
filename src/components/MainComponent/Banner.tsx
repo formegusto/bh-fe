@@ -13,12 +13,12 @@ function Banner() {
           <Information.BoxBlock>
             <Information.Box>
               <Tag className="information tag">데이터 총량수</Tag>
-              <Title className="information title">2,024 GB</Title>
+              <Title className="information title">17 GB</Title>
               <Information.Heading />
             </Information.Box>
             <Information.Box>
               <Tag className="information tag">데이터 종류수</Tag>
-              <Title className="information title">38 EA</Title>
+              <Title className="information title">9 EA</Title>
               <Information.Heading />
             </Information.Box>
             <Information.Box>
@@ -28,7 +28,7 @@ function Banner() {
             </Information.Box>
             <Information.Box>
               <Tag className="information tag">센서 설치 수</Tag>
-              <Title className="information title">704 EA</Title>
+              <Title className="information title">32 EA</Title>
               <Information.Heading />
             </Information.Box>
           </Information.BoxBlock>

@@ -2,15 +2,21 @@ import React from "react";
 import { ACHROMATIC, GRAPHCOLORS } from "src/styles/Palette";
 import styled from "styled-components";
 
+type Range = {
+  min: number;
+  max: number;
+};
+
 type Props = {
   title: string;
   id: number;
   interval: number;
   label: string;
   startTime: number;
+  range: Range;
 };
 
-function VisualItem({ title, id, interval, label, startTime }: Props) {
+function VisualItem({ title, interval, label, startTime, range }: Props) {
   const visualRef = React.useRef<HTMLCanvasElement>(null);
   const chartRef = React.useRef<any>(null);
 
@@ -24,6 +30,7 @@ function VisualItem({ title, id, interval, label, startTime }: Props) {
 
   React.useEffect(() => {
     if (visualRef) {
+      console.log("몇번 도니");
       const Chart = (window as any).Chart;
       const ctx = visualRef.current?.getContext("2d");
       const ranColorIdx = Math.floor(Math.random() * GRAPHCOLORS.length);
@@ -34,7 +41,13 @@ function VisualItem({ title, id, interval, label, startTime }: Props) {
           datasets: [
             {
               label: label,
-              data: Array.from({ length: 10 }).map(() => Math.random() * 30),
+              data: Array.from({ length: 10 }).map(() =>
+                label === "ResidentCount"
+                  ? Math.floor(
+                      Math.random() * (range.max - range.min) + range.min
+                    )
+                  : Math.random() * (range.max - range.min) + range.min
+              ),
               borderColor: GRAPHCOLORS[ranColorIdx],
               backgroundColor: GRAPHCOLORS[ranColorIdx],
             },
@@ -48,6 +61,7 @@ function VisualItem({ title, id, interval, label, startTime }: Props) {
       });
       chartRef.current = chart;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, label]);
 
   React.useEffect(
@@ -75,7 +89,12 @@ function VisualItem({ title, id, interval, label, startTime }: Props) {
         chartRef.current.data.labels.shift();
         chartRef.current.data.labels.push(timeStr);
         chartRef.current.data.datasets[0].data.shift();
-        chartRef.current.data.datasets[0].data.push(Math.random() * 30);
+
+        chartRef.current.data.datasets[0].data.push(
+          label === "ResidentCount"
+            ? Math.floor(Math.random() * (range.max - range.min) + range.min)
+            : Math.random() * (range.max - range.min) + range.min
+        );
 
         chartRef.current.update();
       }, interval);
@@ -151,6 +170,10 @@ function Visualization({ changeViewVisual }: VisualsProps) {
         interval={5500}
         label="Temperature"
         startTime={3}
+        range={{
+          min: 18,
+          max: 19.25,
+        }}
       />
       <VisualItem
         title="습도 센서"
@@ -158,6 +181,10 @@ function Visualization({ changeViewVisual }: VisualsProps) {
         interval={5000}
         label="Humidity"
         startTime={10}
+        range={{
+          min: 24,
+          max: 26,
+        }}
       />
       <VisualItem
         title="조도 센서"
@@ -165,6 +192,10 @@ function Visualization({ changeViewVisual }: VisualsProps) {
         interval={7500}
         label="Humidity"
         startTime={10}
+        range={{
+          min: 338,
+          max: 345,
+        }}
       />
       <VisualItem
         title="거주자 수 센서"
@@ -172,6 +203,10 @@ function Visualization({ changeViewVisual }: VisualsProps) {
         interval={8000}
         label="ResidentCount"
         startTime={2}
+        range={{
+          min: 10,
+          max: 13,
+        }}
       />
     </Wrap>
   );

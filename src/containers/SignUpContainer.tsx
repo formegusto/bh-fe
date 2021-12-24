@@ -10,7 +10,7 @@ function SignUpContainer() {
 
   const onSubmit: SubmitHandler<RequestSignUp> = React.useCallback(
     (data) => {
-      alert(JSON.stringify(data, null, "\t"));
+      // alert(JSON.stringify(data, null, "\t"));
 
       navigate("/");
     },

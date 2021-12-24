@@ -10,7 +10,7 @@ function SignInContainer() {
 
   const onSubmit: SubmitHandler<RequestSignIn> = React.useCallback(
     (data) => {
-      alert(JSON.stringify(data, null, "\t"));
+      // alert(JSON.stringify(data, null, "\t"));
 
       navigate("/");
     },
