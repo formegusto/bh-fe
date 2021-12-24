@@ -5,7 +5,7 @@ import SignInComponent from "src/components/auth/SignInComponent";
 import { RequestSignIn } from "src/store/auth/types";
 
 function SignInContainer() {
-  const { control, handleSubmit } = useForm<RequestSignIn>();
+  const { control, handleSubmit } = useForm<RequestSignIn>({});
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<RequestSignIn> = React.useCallback(

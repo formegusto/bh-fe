@@ -1,5 +1,10 @@
 import { Button, TextField } from "@material-ui/core";
-import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormHandleSubmit,
+} from "react-hook-form";
 import { RequestSignUp } from "src/store/auth/types";
 import styled from "styled-components";
 import InputGroup from "../common/formItems/InputGroup";
@@ -8,9 +13,10 @@ import Rule from "../common/Rule";
 type Props = {
   control: Control<RequestSignUp, object>;
   onSubmit: ReturnType<UseFormHandleSubmit<RequestSignUp>>;
+  errors: FieldErrors<RequestSignUp>;
 };
 
-function SignUpComponent({ control, onSubmit }: Props) {
+function SignUpComponent({ control, onSubmit, errors }: Props) {
   return (
     <Wrap onSubmit={onSubmit}>
       <Controller
@@ -20,47 +26,52 @@ function SignUpComponent({ control, onSubmit }: Props) {
           <TextField
             className="input"
             id="outlined-basic"
-            label="username"
+            label="아이디"
             variant="outlined"
+            error={errors.username && true}
+            helperText={errors.username?.message}
+            fullWidth
+            {...field}
+            required
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            id="outlined-basic"
+            type="password"
+            label="비밀번호"
+            variant="outlined"
+            error={errors.password && true}
+            helperText={errors.password?.message}
             fullWidth
             required
             {...field}
           />
         )}
       />
-
-      <InputGroup>
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="outlined-basic"
-              type="password"
-              label="password"
-              variant="outlined"
-              fullWidth
-              required
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="passwordConfirm"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="outlined-basic"
-              type="password"
-              label="password confirm"
-              variant="outlined"
-              fullWidth
-              required
-              {...field}
-            />
-          )}
-        />
-      </InputGroup>
+      <Controller
+        name="passwordConfirm"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            id="outlined-basic"
+            type="password"
+            label="비밀번호 확인"
+            variant="outlined"
+            error={errors.passwordConfirm && true}
+            helperText={
+              errors.passwordConfirm && "password와 일치하지 않습니다."
+            }
+            fullWidth
+            required
+            {...field}
+          />
+        )}
+      />
       <InputGroup>
         <Controller
           name="name"
@@ -68,8 +79,9 @@ function SignUpComponent({ control, onSubmit }: Props) {
           render={({ field }) => (
             <TextField
               id="outlined-basic"
-              label="name"
+              label="성함"
               variant="outlined"
+              error={errors.name && true}
               fullWidth
               required
               {...field}
@@ -82,8 +94,9 @@ function SignUpComponent({ control, onSubmit }: Props) {
           render={({ field }) => (
             <TextField
               id="outlined-basic"
-              label="organization"
+              label="소속기관"
               variant="outlined"
+              error={errors.organization && true}
               fullWidth
               required
               {...field}
@@ -99,8 +112,10 @@ function SignUpComponent({ control, onSubmit }: Props) {
             <TextField
               id="outlined-basic"
               type="email"
-              label="email"
+              label="이메일"
               variant="outlined"
+              error={errors.email && true}
+              helperText={errors.email?.message}
               fullWidth
               required
               {...field}
@@ -113,8 +128,10 @@ function SignUpComponent({ control, onSubmit }: Props) {
           render={({ field }) => (
             <TextField
               id="outlined-basic"
-              label="phone"
+              label="핸드폰 번호"
               variant="outlined"
+              error={errors.phone && true}
+              helperText={errors.phone?.message}
               fullWidth
               required
               {...field}
@@ -186,15 +203,11 @@ const Wrap = styled.form`
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
   }
 
-  & > .input {
+  & > div {
     margin: 0 0 16px;
   }
 
-  & > .inputgroup {
-    margin: 0 0 16px;
-  }
-
-  & > .inputgroup:nth-child(4) {
+  & > .inputgroup:nth-child(3) {
     margin: 0 0 48px;
   }
 
