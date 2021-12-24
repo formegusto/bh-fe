@@ -11,7 +11,7 @@ import { ConnectedProps } from "react-redux";
 const validateSchema = Yup.object({
   username: Yup.string()
     .matches(
-      /^[a-z]+[a-z\d]$/g,
+      /^[a-z]+[a-z0-9]/g,
       "소문자로 시작하는 소문자 또는 숫자로만 입력해주세요."
     )
     .min(5, "최소 5자 이상 입력해주세요.")

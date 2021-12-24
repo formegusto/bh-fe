@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { Action } from "redux";
 import { call, put, select } from "redux-saga/effects";
+import { showAlert } from "src/store/alert/actions";
 import { symmetricDecrypt, symmetricEncrypt } from "./ARIAUtils";
 
 interface SagaAction<Payload = any> extends Action<string> {
@@ -12,10 +13,10 @@ export default function createRequestSaga<P = any, AR = any>(
   type: string,
   request: (...params: P[]) => Promise<AxiosResponse<AR>>,
   isEncrypt?: boolean,
-  isDecrypt?: boolean
+  isDecrypt?: boolean,
+  infoMessage?: string
 ) {
   const SUCCESS = `${type}_SUCCESS`;
-  const FAILURE = `${type}_FAILURE`;
 
   return function* (action: SagaAction<P>) {
     try {
@@ -36,6 +37,7 @@ export default function createRequestSaga<P = any, AR = any>(
           (state) => state.sessionCert.symmetricKey
         );
         const decBody = symmetricDecrypt(response.data as any, symKey);
+
         yield put<SagaAction<AR>>({
           type: SUCCESS,
           payload: JSON.parse(decBody),
@@ -46,12 +48,22 @@ export default function createRequestSaga<P = any, AR = any>(
           payload: response.data,
         });
       }
+
+      if (infoMessage) {
+        yield put(
+          showAlert({
+            type: "info",
+            message: infoMessage,
+          })
+        );
+      }
     } catch (e: any) {
-      yield put<SagaAction<AR>>({
-        type: FAILURE,
-        payload: e.response.data,
-        error: true,
-      });
+      yield put(
+        showAlert({
+          type: "error",
+          message: e.response.data.error.message,
+        })
+      );
     }
   };
 }

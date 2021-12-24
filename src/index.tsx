@@ -9,6 +9,7 @@ import rootReducer from "./store";
 import { Provider } from "react-redux";
 import createSagaMW from "@redux-saga/core";
 import RootSaga from "./store/saga";
+import AlertModal from "./containers/common/AlertModal";
 import SessionCertConfig from "./containers/common/SessionCertConfig";
 
 const sagaMW = createSagaMW();
@@ -21,6 +22,7 @@ sagaMW.run(RootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <SessionCertConfig />
+    <AlertModal />
     <Router>
       <ScrollToTop />
       <App />

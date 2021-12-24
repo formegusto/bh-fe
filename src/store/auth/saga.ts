@@ -7,14 +7,16 @@ const signInSaga = createRequestSaga<string>(
   SIGNIN,
   Api["AuthAPI"].signIn,
   true,
-  true
+  true,
+  "로그인 되었습니다."
 );
 
 const signUpSaga = createRequestSaga<string>(
   SIGNUP,
   Api["AuthAPI"].signUp,
   true,
-  true
+  true,
+  "회원가입에 성공하였습니다."
 );
 
 export default function* authSaga() {
