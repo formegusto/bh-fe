@@ -75,7 +75,7 @@ function SessionCertConfig({
           bgcolor: blue[900],
         }
       : {
-          bgcolor: blue[700],
+          bgcolor: blue[900],
         }),
   };
 

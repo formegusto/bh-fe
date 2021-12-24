@@ -38,7 +38,7 @@ export default function createRequestSaga<P = any, AR = any>(
         const decBody = symmetricDecrypt(response.data as any, symKey);
         yield put<SagaAction<AR>>({
           type: SUCCESS,
-          payload: decBody as any,
+          payload: JSON.parse(decBody),
         });
       } else {
         yield put<SagaAction<AR>>({

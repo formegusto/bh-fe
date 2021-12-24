@@ -1,7 +1,7 @@
 import createActionTypes from "src/utils/createActionTypes";
 
 // auth variable type
-export interface Auth {
+export interface ResponseAuth {
   token: string;
 }
 

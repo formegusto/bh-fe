@@ -1,24 +1,25 @@
 import { handleActions } from "redux-actions";
-import { Auth, SIGNIN_SUCCESS, SIGNUP_SUCCESS } from "./types";
+import { Response } from "../types";
+import { ResponseAuth, SIGNIN_SUCCESS, SIGNUP_SUCCESS } from "./types";
 
 type AuthStore = {
-  auth: Auth | null;
+  auth: string | null;
 };
 
 const authStore: AuthStore = {
   auth: null,
 };
 
-type Payload = Auth;
+type Payload = Response<ResponseAuth>;
 const authReducer = handleActions<AuthStore, Payload>(
   {
     [SIGNIN_SUCCESS]: (state, action) => ({
       ...state,
-      auth: action.payload,
+      auth: action.payload.token,
     }),
     [SIGNUP_SUCCESS]: (state, action) => ({
       ...state,
-      auth: action.payload,
+      auth: action.payload.token,
     }),
   },
   authStore
