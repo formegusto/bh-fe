@@ -1,9 +1,7 @@
-import { createTheme } from "@material-ui/core";
-import { indigo, pink } from "@material-ui/core/colors";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Assets from "src/assets";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 
 const BANNERS = [
   Assets.Banner.Banner1Darker,
@@ -11,17 +9,6 @@ const BANNERS = [
   Assets.Banner.Banner3Darker,
   Assets.Banner.Banner4Darker,
 ];
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: indigo[500],
-    },
-    error: {
-      main: pink[500],
-    },
-  },
-});
 
 function AuthPage() {
   const [bannerIdx, setBannerIdx] = React.useState<number | null>(null);
@@ -38,9 +25,7 @@ function AuthPage() {
         <Link to="/">
           <img src={Assets.Symbols.KETILogoHorizontal} alt="KETI LOGO" />
         </Link>
-        <ThemeProvider theme={theme}>
-          <Outlet />
-        </ThemeProvider>
+        <Outlet />
       </AuthWrap>
     </Wrap>
   );

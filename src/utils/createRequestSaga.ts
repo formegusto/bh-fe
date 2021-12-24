@@ -9,9 +9,7 @@ interface SagaAction<Payload = any> extends Action<string> {
 
 export default function createRequestSaga<P = any, AR = any>(
   type: string,
-  request: (...params: P[]) => Promise<AxiosResponse<AR>>,
-  successCb?: () => void | null,
-  failureCb?: () => void | null
+  request: (...params: P[]) => Promise<AxiosResponse<AR>>
 ) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
@@ -23,14 +21,12 @@ export default function createRequestSaga<P = any, AR = any>(
         type: SUCCESS,
         payload: response.data,
       });
-      if (successCb) successCb();
     } catch (e: any) {
       yield put<SagaAction<AR>>({
         type: FAILURE,
         payload: e.response.data,
         error: true,
       });
-      if (failureCb) failureCb();
     }
   };
 }

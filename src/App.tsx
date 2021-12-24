@@ -8,8 +8,8 @@ import AuthPage from "./pages/AuthPage";
 import RootPage from "./pages";
 import DocumentComponent from "./components/sharing/DocumentComponent";
 import ConsoleComponent from "./components/sharing/ConsoleComponent";
-import SignInContainer from "./containers/SignInContainer";
-import SignUpContainer from "./containers/SignUpContainer";
+import SignInContainer from "./containers/auth/SignInContainer";
+import SignUpContainer from "./containers/auth/SignUpContainer";
 
 function App() {
   return (

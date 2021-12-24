@@ -1,4 +1,4 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@mui/material";
 import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { RequestSignIn } from "src/store/auth/types";

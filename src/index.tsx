@@ -4,14 +4,23 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./store";
 import { Provider } from "react-redux";
+import createSagaMW from "@redux-saga/core";
+import RootSaga from "./store/saga";
+import SessionCertConfig from "./containers/common/SessionCertConfig";
 
-const store = createStore(rootReducer, composeWithDevTools());
+const sagaMW = createSagaMW();
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMW))
+);
+sagaMW.run(RootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
+    <SessionCertConfig />
     <Router>
       <ScrollToTop />
       <App />
