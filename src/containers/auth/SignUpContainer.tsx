@@ -2,9 +2,11 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import SignUpComponent from "src/components/auth/SignUpComponent";
-import { RequestSignUp } from "src/store/auth/types";
+import { RequestSignUp, SignUpForm } from "src/store/auth/types";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import AuthConnector from "src/store/auth/connector";
+import { ConnectedProps } from "react-redux";
 
 const validateSchema = Yup.object({
   username: Yup.string()
@@ -32,24 +34,34 @@ const validateSchema = Yup.object({
     .required(""),
 });
 
-function SignUpContainer() {
+interface Props extends ConnectedProps<typeof AuthConnector> {}
+
+function SignUpContainer({ signUp }: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestSignUp>({
+  } = useForm<SignUpForm>({
     resolver: yupResolver(validateSchema),
     mode: "onTouched",
   });
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<RequestSignUp> = React.useCallback(
+  const onSubmit: SubmitHandler<SignUpForm> = React.useCallback(
     (data) => {
-      // alert(JSON.stringify(data, null, "\t"));
+      const reqSignUp: RequestSignUp = {
+        username: data.username,
+        password: data.password,
+        name: data.name,
+        organization: data.organization,
+        email: data.email,
+        phone: data.phone,
+      };
+      signUp(reqSignUp);
 
       navigate("/");
     },
-    [navigate]
+    [navigate, signUp]
   );
 
   return (
@@ -61,4 +73,4 @@ function SignUpContainer() {
   );
 }
 
-export default SignUpContainer;
+export default AuthConnector(SignUpContainer);

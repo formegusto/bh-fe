@@ -11,11 +11,14 @@ export interface RequestSignIn {
 }
 
 export interface RequestSignUp extends RequestSignIn {
-  passwordConfirm: string;
   name: string;
   organization: string;
   email: string;
   phone: string;
+}
+
+export interface SignUpForm extends RequestSignUp {
+  passwordConfirm: string;
   termsOfUse: boolean;
   privacyPolicy: boolean;
 }

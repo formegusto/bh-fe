@@ -9,10 +9,13 @@ import { ConnectedProps } from "react-redux";
 import getRandomBytes from "src/utils/getRandomBytes";
 import { publicEncrypt } from "crypto";
 import { symmetricDecrypt, symmetricEncrypt } from "src/utils/ARIAUtils";
+import client from "src/api/client";
+import { REQUEST_ENC_HEADER } from "src/api/types";
 
 interface Props extends ConnectedProps<typeof SessionCertConnector> {}
 
 function SessionCertConfig({
+  id,
   symmetricKey,
   tmp,
   getPublicKey,
@@ -77,15 +80,28 @@ function SessionCertConfig({
   };
 
   React.useEffect(() => {
-    if (symmetricKey) {
+    if (symmetricKey && id) {
       setTimeout(() => {
         setLoading(false);
         setTimeout(() => {
           setSuccess(true);
+          client.interceptors.request.use(
+            (config) => {
+              config.headers = {
+                "session-cert-id": id.toString(),
+                ...REQUEST_ENC_HEADER,
+              };
+
+              return config;
+            },
+            (error) => {
+              return Promise.reject(error);
+            }
+          );
         }, 2000);
       }, 2000);
     }
-  }, [symmetricKey]);
+  }, [symmetricKey, id]);
 
   return success ? (
     <></>

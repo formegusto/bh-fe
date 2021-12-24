@@ -5,15 +5,15 @@ import {
   FieldErrors,
   UseFormHandleSubmit,
 } from "react-hook-form";
-import { RequestSignUp } from "src/store/auth/types";
+import { SignUpForm } from "src/store/auth/types";
 import styled from "styled-components";
 import InputGroup from "../common/formItems/InputGroup";
 import Rule from "../common/Rule";
 
 type Props = {
-  control: Control<RequestSignUp, object>;
-  onSubmit: ReturnType<UseFormHandleSubmit<RequestSignUp>>;
-  errors: FieldErrors<RequestSignUp>;
+  control: Control<SignUpForm, object>;
+  onSubmit: ReturnType<UseFormHandleSubmit<SignUpForm>>;
+  errors: FieldErrors<SignUpForm>;
 };
 
 function SignUpComponent({ control, onSubmit, errors }: Props) {

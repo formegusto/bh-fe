@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, Paper } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Paper } from "@mui/material";
 import { ControllerRenderProps } from "react-hook-form";
 import { ACHROMATIC } from "src/styles/Palette";
 import styled from "styled-components";
