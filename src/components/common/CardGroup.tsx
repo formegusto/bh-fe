@@ -28,11 +28,11 @@ const Group = styled.div<StyleProps>`
     css`
       & > .card,
       .cardgroup {
-        width: calc(50% - 20px);
+        width: calc(50% - 10px);
       }
 
-      & > .card:nth-child(1n + 0),
-      .cardgroup:nth-child(1n + 0) {
+      & > .card:nth-child(odd),
+      .cardgroup:nth-child(odd) {
         margin-right: 20px;
       }
     `}

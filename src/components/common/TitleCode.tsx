@@ -28,11 +28,12 @@ function TitleCode({ title, contents, className, ...htmlProps }: Props) {
 const Code = styled.code`
   display: block;
 
-  width: 100%;
+  width: calc(100% - 20px);
   box-sizing: border-box;
 
   padding: 20px;
   background: #f7f6f3;
+  margin: 0 0 0 10px;
 `;
 const Title = styled.h1`
   box-sizing: border-box;

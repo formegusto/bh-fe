@@ -6,10 +6,31 @@ import BasicCol from "../common/tableItems/BasicCol";
 import BasicRow from "../common/tableItems/BasicRow";
 import BasicTable from "../common/tableItems/BasicTable";
 import TitleCode from "../common/TitleCode";
+import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
+import { Fab } from "@mui/material";
+import ApplyDialog, { ApplyDialogConfig } from "./ApplyDialog";
 
-function DocumentComponent() {
+type ConfigProps = {
+  show: () => void;
+  open: boolean;
+};
+
+interface Props extends ApplyDialogConfig, ConfigProps {}
+
+function DocumentComponent({ hide, show, open }: Props) {
   return (
     <Wrap>
+      <Fab
+        variant="extended"
+        className="fab-apply"
+        color="primary"
+        onClick={show}
+      >
+        <HistoryEduIcon sx={{ mr: 1 }} />
+        신청하기
+      </Fab>
+      {open && <ApplyDialog hide={hide} />}
+
       <h2 className="subtitle">Document</h2>
       <h4 className="subdescription">
         BEMS-HDMS API Server의 데이터 무결성을 위한 통신 암호화 처리과정과 API
@@ -420,6 +441,15 @@ const Wrap = styled.div`
 
   & #response-document {
     margin-top: 32px;
+  }
+
+  & .fab-apply {
+    position: sticky;
+
+    top: calc(100vh - 100px);
+    float: right;
+
+    transform: translateX(-10px) translateY(-10px);
   }
 `;
 
