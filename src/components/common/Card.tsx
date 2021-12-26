@@ -26,7 +26,7 @@ function Card({
 }: React.PropsWithChildren<Props>) {
   return (
     <Wrap className={`card ${className ? className : ""}`} {...htmlProps}>
-      {title && <Title>{title}</Title>}
+      {title && <Title className="card-title">{title}</Title>}
       {description && (
         <Desc>
           <pre>{description}</pre>

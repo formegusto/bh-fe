@@ -1,3 +1,4 @@
+import { Button, TextField } from "@mui/material";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled, { StyledComponentProps } from "styled-components";
 import Card from "../common/Card";
@@ -95,22 +96,70 @@ function ConsoleComponent() {
       </h4>
       <CardGroup>
         <Card isBorder>
-          <Card title="CONFIG PATH PARAMETER">
-            <ConsoleInput
-              labelText="buildingId"
+          <Card title="CONFIG PATH PARAMETER" className="padding-card">
+            <TextField
+              label="buildingId"
               placeholder="input buildingId"
+              size="small"
+              fullWidth
+              autoFocus
             />
-            <ConsoleInput labelText="unitId" placeholder="input unitId" />
-            <ConsoleInput labelText="sensorId" placeholder="input sensorId" />
+            <TextField
+              label="unitId"
+              placeholder="input unitId"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="sensorId"
+              placeholder="input sensorId"
+              size="small"
+              fullWidth
+            />
           </Card>
-          <Card title="CONFIG QUERY PARAMETER">
-            <ConsoleInput labelText="include" placeholder="all" />
-            <ConsoleInput labelText="exclude" placeholder="null" />
-            <ConsoleInput labelText="startDate" placeholder="NOW - 7day" />
-            <ConsoleInput labelText="endDate" placeholder="startDate + 7day" />
-            <ConsoleInput labelText="interval" placeholder="null" />
-            <ConsoleInput labelText="limit" placeholder="null" />
-            <ConsoleInput labelText="offset" placeholder="null" />
+          <Card title="CONFIG QUERY PARAMETER" className="padding-card">
+            <TextField
+              label="include"
+              placeholder="all"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="exclude"
+              placeholder="null"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="startDate"
+              placeholder="NOW - 7day"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="endDate"
+              placeholder="startDate + 7day"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="interval"
+              placeholder="null"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="limit"
+              placeholder="null"
+              size="small"
+              fullWidth
+            />
+            <TextField
+              label="offset"
+              placeholder="null"
+              size="small"
+              fullWidth
+            />
           </Card>
         </Card>
         <Card>
@@ -119,7 +168,9 @@ function ConsoleComponent() {
               contents={`curl -x “GET” http://{bems-hdms-domain}/api/bems-hdms/1?include=temperature,humidity,lux&startDate=2021-12-18T13:05&end Date=2021-12-18T13:10 -H “Accept:text/plain” -H “Authorization:*******************************”`}
             />
             <ButtonGroup>
-              <Button type="button">REQUEST</Button>
+              <Button type="button" color="primary" variant="contained">
+                REQUEST
+              </Button>
             </ButtonGroup>
           </Card>
           <Card title="RESPONSE">
@@ -129,8 +180,12 @@ function ConsoleComponent() {
               }
             />
             <ButtonGroup>
-              <Button type="button">DECRYPT</Button>
-              <Button type="button">EXPORT EXCEL</Button>
+              <Button type="button" color="primary" variant="contained">
+                DECRYPT
+              </Button>
+              <Button type="button" color="primary" variant="contained">
+                EXPORT EXCEL
+              </Button>
             </ButtonGroup>
           </Card>
         </Card>
@@ -143,6 +198,27 @@ const Wrap = styled.div`
   & .titlecode {
     width: calc(100% - 16px);
     margin: 0 8px;
+  }
+
+  & .card {
+    width: 100%;
+  }
+
+  & .card.padding-card {
+    margin: 0 0 88px;
+
+    padding: 0 10px;
+
+    & > .card-title {
+      padding: 16px 2px;
+    }
+
+    & > .MuiFormControl-root {
+    }
+
+    & > .MuiFormControl-root:not(:last-child) {
+      margin: 0 0 12px;
+    }
   }
 `;
 
@@ -159,27 +235,27 @@ const ButtonGroup = styled.div`
     margin: 0 14px 0 0;
   }
 `;
-const Button = styled.button`
-  border: none;
-  outline: none;
+// const Button = styled.button`
+//   border: none;
+//   outline: none;
 
-  padding: 8px 16px;
+//   padding: 8px 16px;
 
-  background: ${BLUE[1]};
+//   background: ${BLUE[1]};
 
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
+//   font-style: normal;
+//   font-weight: bold;
+//   font-size: 14px;
+//   line-height: 16px;
 
-  color: ${ACHROMATIC[15]};
+//   color: ${ACHROMATIC[15]};
 
-  cursor: pointer;
+//   cursor: pointer;
 
-  &:focus,
-  &:hover {
-    background: rgba(38, 68, 109, 0.7);
-  }
-`;
+//   &:focus,
+//   &:hover {
+//     background: rgba(38, 68, 109, 0.7);
+//   }
+// `;
 
 export default ConsoleComponent;
