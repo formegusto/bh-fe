@@ -44,3 +44,5 @@ export const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] =
   createActionTypes("auth/check");
 export const SETAUTH = "auth/set";
 export const SET_AUTH_NEW_APPLICATION = "auth/set/new_application";
+export const LOGOUT = "auth/logout";
+export const CLEANAUTH = "auth/clean";

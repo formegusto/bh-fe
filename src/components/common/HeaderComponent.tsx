@@ -10,10 +10,15 @@ import { ContainerWidth1240 } from "src/styles/Container";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled from "styled-components";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import React from "react";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
 
-function HeaderComponent({ user, check }: Props) {
+function HeaderComponent({ user, check, logout }: Props) {
+  const onClickLogout = React.useCallback(() => {
+    logout();
+  }, [logout]);
+
   return (
     <>
       <Wrap>
@@ -82,7 +87,9 @@ function HeaderComponent({ user, check }: Props) {
                           <span className="username">({user.username})</span>
                         </p>
                       </ProfileDropDown.ProfileInformation>
-                      <Button size="small">로그아웃</Button>
+                      <Button size="small" onClick={onClickLogout}>
+                        로그아웃
+                      </Button>
                     </ProfileDropDown.ProfileBlock>
 
                     <ProfileDropDown.ApiStatusBlock>

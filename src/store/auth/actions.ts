@@ -2,6 +2,7 @@ import { createAction } from "redux-actions";
 import { ApiApplication } from "../apiApplication/types";
 import {
   CHECK,
+  LOGOUT,
   RequestSignIn,
   RequestSignUp,
   SETAUTH,
@@ -17,3 +18,4 @@ export const setAuth = createAction<string>(SETAUTH);
 export const setNewApplication = createAction<ApiApplication>(
   SET_AUTH_NEW_APPLICATION
 );
+export const logout = createAction(LOGOUT);

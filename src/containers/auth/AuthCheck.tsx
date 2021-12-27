@@ -4,7 +4,7 @@ import client from "src/api/client";
 import AuthConnector from "src/store/auth/connector";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
-function AuthCheck({ auth, check, user }: Props) {
+function AuthCheck({ auth, check, user, error }: Props) {
   React.useEffect(() => {
     if (auth && !user) {
       sessionStorage.setItem("auth", auth);
@@ -23,7 +23,9 @@ function AuthCheck({ auth, check, user }: Props) {
       );
       check();
     }
-  }, [auth, check, user]);
+
+    if (!auth && !user && error) sessionStorage.removeItem("auth");
+  }, [auth, check, user, error]);
 
   return <></>;
 }

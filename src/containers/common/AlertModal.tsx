@@ -70,6 +70,12 @@ interface Props extends ConnectedProps<typeof AlertConnector> {}
 function AlertModal({ open, alert, hideAlert }: Props) {
   React.useEffect(() => {
     if (open) {
+      const ElModalButton = document.querySelector(
+        "#alert-model-button"
+      ) as HTMLButtonElement;
+
+      if (ElModalButton) ElModalButton.focus();
+
       document.body.classList.add("modal-open");
     } else {
       document.body.classList.remove("modal-open");
@@ -95,9 +101,11 @@ function AlertModal({ open, alert, hideAlert }: Props) {
       </DialogContent>
       <DialogActions>
         <Button
+          id="alert-model-button"
           variant="outlined"
           onClick={hideAlert}
           color={alert ? alert.type : undefined}
+          focusRipple
         >
           확인
         </Button>

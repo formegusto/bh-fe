@@ -3,7 +3,7 @@ import { RootReducer } from "..";
 import * as actions from "./actions";
 import { setAuth } from "../auth/actions";
 
-const mapState = ({ sessionCert, auth }: RootReducer) => ({
+const mapState = ({ sessionCert }: RootReducer) => ({
   ...sessionCert,
 });
 

@@ -1,5 +1,6 @@
 export type AlertData = {
   type: "error" | "info";
+  action: string;
   message: string;
 };
 

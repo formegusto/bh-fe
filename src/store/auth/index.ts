@@ -1,7 +1,10 @@
 import { handleActions } from "redux-actions";
 import { API_STATUS } from "../apiApplication/types";
+import { CommonStoreShape } from "../types";
 import {
+  CHECK_FAILURE,
   CHECK_SUCCESS,
+  CLEANAUTH,
   ResponseAuth,
   SETAUTH,
   SET_AUTH_NEW_APPLICATION,
@@ -10,12 +13,13 @@ import {
   UserData,
 } from "./types";
 
-type AuthStore = {
+type AuthStore = CommonStoreShape<{
   auth?: string | null;
   user?: UserData | null;
-};
+}>;
 
 const authStore: AuthStore = {
+  error: false,
   auth: null,
   user: null,
 };
@@ -26,10 +30,12 @@ const authReducer = handleActions<AuthStore, Payload>(
     [SIGNIN_SUCCESS]: (state, action) => ({
       ...state,
       auth: action.payload.token,
+      error: false,
     }),
     [SIGNUP_SUCCESS]: (state, action) => ({
       ...state,
       auth: action.payload.token,
+      error: false,
     }),
     [CHECK_SUCCESS]: (state, action) => ({
       ...state,
@@ -44,10 +50,18 @@ const authReducer = handleActions<AuthStore, Payload>(
                 : action.payload.user.apiApplication,
           }
         : null,
+      error: false,
+    }),
+    [CHECK_FAILURE]: (state) => ({
+      ...state,
+      auth: null,
+      user: null,
+      error: true,
     }),
     [SETAUTH]: (state, action) => ({
       ...state,
       auth: action.payload as any,
+      error: false,
     }),
     [SET_AUTH_NEW_APPLICATION]: (state, action: any) => ({
       ...state,
@@ -57,6 +71,12 @@ const authReducer = handleActions<AuthStore, Payload>(
             apiApplication: action.payload,
           }
         : null,
+      error: false,
+    }),
+    [CLEANAUTH]: () => ({
+      error: false,
+      user: null,
+      auth: null,
     }),
   },
   authStore

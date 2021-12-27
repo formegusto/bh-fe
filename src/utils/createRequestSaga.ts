@@ -14,9 +14,11 @@ export default function createRequestSaga<P = any, AR = any>(
   request: (...params: P[]) => Promise<AxiosResponse<AR>>,
   isEncrypt?: boolean,
   isDecrypt?: boolean,
-  infoMessage?: string
+  infoMessage?: string,
+  isShowError?: boolean
 ) {
   const SUCCESS = `${type}_SUCCESS`;
+  const FAILURE = `${type}_FAILURE`;
 
   return function* (action: SagaAction<P>) {
     try {
@@ -52,17 +54,23 @@ export default function createRequestSaga<P = any, AR = any>(
         yield put(
           showAlert({
             type: "info",
+            action: type,
             message: infoMessage,
           })
         );
       }
     } catch (e: any) {
-      yield put(
-        showAlert({
-          type: "error",
-          message: e.response.data.error.message,
-        })
-      );
+      yield put({
+        type: FAILURE,
+      });
+      if (!isShowError)
+        yield put(
+          showAlert({
+            type: "error",
+            action: type,
+            message: e.response.data.error.message,
+          })
+        );
     }
   };
 }

@@ -105,7 +105,6 @@ function SessionCertConfig({
           );
           const auth = sessionStorage.getItem("auth");
           if (auth) setAuth(auth);
-
           document.body.classList.remove("modal-open");
         }, 2000);
       }, 2000);
