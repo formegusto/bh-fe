@@ -33,6 +33,7 @@ function SignUpComponent({ control, onSubmit, errors }: Props) {
             fullWidth
             {...field}
             required
+            autoFocus
           />
         )}
       />

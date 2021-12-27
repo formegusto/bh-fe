@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { ApiApplication, APPLY_API } from "./types";
+import { ApiApplication, APPLY_API, SET_NEW_APPLICATION } from "./types";
 
 export const applyApi = createAction<ApiApplication, string>(
   APPLY_API,
@@ -7,3 +7,6 @@ export const applyApi = createAction<ApiApplication, string>(
     purpose,
   })
 );
+
+export const setNewApplication =
+  createAction<ApiApplication>(SET_NEW_APPLICATION);

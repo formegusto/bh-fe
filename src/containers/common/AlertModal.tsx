@@ -68,6 +68,13 @@ const StyledDialog = styled(Dialog)<{ type: "error" | "info" | null }>`
 interface Props extends ConnectedProps<typeof AlertConnector> {}
 
 function AlertModal({ open, alert, hideAlert }: Props) {
+  React.useEffect(() => {
+    if (open) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [open]);
   return (
     <StyledDialog
       type={open && alert ? alert.type : null}

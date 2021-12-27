@@ -81,11 +81,11 @@ function ApplyDialog({ hide, applyApi }: Props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={hide}>
-            취소
-          </Button>
           <Button variant="outlined" type="submit">
             신청
+          </Button>
+          <Button variant="outlined" onClick={hide}>
+            취소
           </Button>
         </DialogActions>
       </form>

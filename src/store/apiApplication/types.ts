@@ -1,4 +1,5 @@
 import createActionTypes from "src/utils/createActionTypes";
+import { Response } from "../types";
 
 // data types
 export enum API_STATUS {
@@ -21,6 +22,11 @@ export type ApiApplication = {
   purpose?: string;
 };
 
+export interface ResponseApiApplication extends Response<any> {
+  apiApplication?: ApiApplication;
+}
+
 // redux action types
 export const [APPLY_API, APPLY_API_SUCCESS, APPLY_API_FAILURE] =
   createActionTypes("apiApplication/apply");
+export const SET_NEW_APPLICATION = "apiApplication/setting_new";

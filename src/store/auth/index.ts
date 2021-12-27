@@ -4,6 +4,7 @@ import {
   CHECK_SUCCESS,
   ResponseAuth,
   SETAUTH,
+  SET_AUTH_NEW_APPLICATION,
   SIGNIN_SUCCESS,
   SIGNUP_SUCCESS,
   UserData,
@@ -47,6 +48,15 @@ const authReducer = handleActions<AuthStore, Payload>(
     [SETAUTH]: (state, action) => ({
       ...state,
       auth: action.payload as any,
+    }),
+    [SET_AUTH_NEW_APPLICATION]: (state, action: any) => ({
+      ...state,
+      user: state.user
+        ? {
+            ...state.user,
+            apiApplication: action.payload,
+          }
+        : null,
     }),
   },
   authStore

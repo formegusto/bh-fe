@@ -24,6 +24,7 @@ function SignInComponent({ control, onSubmit }: Props) {
             fullWidth
             required
             {...field}
+            autoFocus
           />
         )}
       />

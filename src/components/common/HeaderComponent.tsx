@@ -9,10 +9,11 @@ import AuthConnector from "src/store/auth/connector";
 import { ContainerWidth1240 } from "src/styles/Container";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled from "styled-components";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
 
-function HeaderComponent({ user }: Props) {
+function HeaderComponent({ user, check }: Props) {
   return (
     <>
       <Wrap>
@@ -85,7 +86,10 @@ function HeaderComponent({ user }: Props) {
                     </ProfileDropDown.ProfileBlock>
 
                     <ProfileDropDown.ApiStatusBlock>
-                      <h1 className="title">API 이용상태</h1>
+                      <h1 className="title">
+                        API 이용상태
+                        <RefreshIcon fontSize="small" onClick={() => check()} />
+                      </h1>
                       <p className={`status ${user.apiApplication!.status}`}>
                         {user.apiApplication!.status}
                       </p>
@@ -224,6 +228,11 @@ const ProfileDropDown = {
       line-height: 19px;
 
       margin: 0 0 8px;
+
+      & > .MuiSvgIcon-root {
+        float: right;
+        cursor: pointer;
+      }
     }
 
     & > p.status-description {
