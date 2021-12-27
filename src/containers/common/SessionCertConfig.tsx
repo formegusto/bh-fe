@@ -27,6 +27,9 @@ function SessionCertConfig({
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
+  React.useEffect(() => {
+    document.body.classList.add("modal-open");
+  }, []);
   // step1. request public key
   React.useEffect(() => {
     getPublicKey();
@@ -102,6 +105,8 @@ function SessionCertConfig({
           );
           const auth = sessionStorage.getItem("auth");
           if (auth) setAuth(auth);
+
+          document.body.classList.remove("modal-open");
         }, 2000);
       }, 2000);
     }

@@ -1,3 +1,5 @@
+import createActionTypes from "src/utils/createActionTypes";
+
 // data types
 export enum API_STATUS {
   NONE = "none",
@@ -18,3 +20,7 @@ export type ApiApplication = {
   status?: API_STATUS;
   purpose?: string;
 };
+
+// redux action types
+export const [APPLY_API, APPLY_API_SUCCESS, APPLY_API_FAILURE] =
+  createActionTypes("apiApplication/apply");
