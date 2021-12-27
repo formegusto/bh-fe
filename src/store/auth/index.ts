@@ -1,4 +1,5 @@
 import { handleActions } from "redux-actions";
+import { API_STATUS } from "../apiApplication/types";
 import {
   CHECK_SUCCESS,
   ResponseAuth,
@@ -31,7 +32,17 @@ const authReducer = handleActions<AuthStore, Payload>(
     }),
     [CHECK_SUCCESS]: (state, action) => ({
       ...state,
-      user: action.payload.user,
+      user: action.payload.user
+        ? {
+            ...action.payload.user,
+            apiApplication:
+              action.payload.user.apiApplication === null
+                ? {
+                    status: API_STATUS.NONE,
+                  }
+                : action.payload.user.apiApplication,
+          }
+        : null,
     }),
     [SETAUTH]: (state, action) => ({
       ...state,

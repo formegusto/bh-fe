@@ -1,4 +1,5 @@
 import createActionTypes from "src/utils/createActionTypes";
+import { ApiApplication } from "../apiApplication/types";
 import { Response } from "../types";
 
 // auth variable type
@@ -29,6 +30,9 @@ export interface UserData {
   id: number;
   username: string;
   role: string;
+  name: string;
+  organization: string;
+  apiApplication?: ApiApplication;
 }
 
 // redux action type

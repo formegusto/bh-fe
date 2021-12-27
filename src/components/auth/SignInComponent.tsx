@@ -19,7 +19,7 @@ function SignInComponent({ control, onSubmit }: Props) {
         render={({ field }) => (
           <TextField
             id="outlined-basic"
-            label="username"
+            label="아이디"
             variant="outlined"
             fullWidth
             required
@@ -33,7 +33,7 @@ function SignInComponent({ control, onSubmit }: Props) {
         render={({ field }) => (
           <TextField
             id="outlined-basic"
-            label="password"
+            label="비밀번호"
             type="password"
             variant="outlined"
             fullWidth
@@ -49,10 +49,10 @@ function SignInComponent({ control, onSubmit }: Props) {
         size="large"
         fullWidth
       >
-        Sign In
+        로그인
       </Button>
-      <LinkText to="/auth/signup">Don’t have an account? Sign Up</LinkText>
-      <LinkText to="/auth/find">Forgot Password?</LinkText>
+      <LinkText to="/auth/signup">계정이 없으신가요? 가입페이지 이동</LinkText>
+      <LinkText to="/auth/find">비밀번호를 잊으셨나요?</LinkText>
     </Wrap>
   );
 }
