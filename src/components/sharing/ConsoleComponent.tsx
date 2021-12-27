@@ -1,90 +1,89 @@
 import { Button, TextField } from "@mui/material";
-import { ACHROMATIC, BLUE } from "src/styles/Palette";
-import styled, { StyledComponentProps } from "styled-components";
+import styled from "styled-components";
 import Card from "../common/Card";
 import CardGroup from "../common/CardGroup";
 import TitleCode from "../common/TitleCode";
 
-type InputConfigProps = {
-  labelText: string;
-};
+// type InputConfigProps = {
+//   labelText: string;
+// };
 
-interface InputProps
-  extends StyledComponentProps<"input", {}, any, any>,
-    InputConfigProps {}
+// interface InputProps
+//   extends StyledComponentProps<"input", {}, any, any>,
+//     InputConfigProps {}
 
-function ConsoleInput({ labelText, ...htmlProps }: InputProps) {
-  return (
-    <InputStyle.Wrap>
-      <InputStyle.Label htmlFor={htmlProps.id}>{labelText}</InputStyle.Label>
-      <InputStyle.Input type="text" {...htmlProps} />
-    </InputStyle.Wrap>
-  );
-}
+// function ConsoleInput({ labelText, ...htmlProps }: InputProps) {
+//   return (
+//     <InputStyle.Wrap>
+//       <InputStyle.Label htmlFor={htmlProps.id}>{labelText}</InputStyle.Label>
+//       <InputStyle.Input type="text" {...htmlProps} />
+//     </InputStyle.Wrap>
+//   );
+// }
 
-const InputStyle = {
-  Wrap: styled.div`
-    display: flex;
-    flex-direction: column;
+// const InputStyle = {
+//   Wrap: styled.div`
+//     display: flex;
+//     flex-direction: column;
 
-    width: 100%;
-    padding: 0 10px;
+//     width: 100%;
+//     padding: 0 10px;
 
-    box-sizing: border-box;
+//     box-sizing: border-box;
 
-    &:focus-within {
-      & > label {
-        color: ${ACHROMATIC[3]};
-      }
+//     &:focus-within {
+//       & > label {
+//         color: ${ACHROMATIC[3]};
+//       }
 
-      & > input {
-        color: ${ACHROMATIC[3]};
-        border-color: ${ACHROMATIC[3]};
-      }
-    }
-  `,
+//       & > input {
+//         color: ${ACHROMATIC[3]};
+//         border-color: ${ACHROMATIC[3]};
+//       }
+//     }
+//   `,
 
-  Label: styled.label`
-    margin: 0 0 4px;
+//   Label: styled.label`
+//     margin: 0 0 4px;
 
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 12px;
+//     line-height: 14px;
 
-    color: ${ACHROMATIC[6]};
-  `,
+//     color: ${ACHROMATIC[6]};
+//   `,
 
-  Input: styled.input`
-    width: 100%;
-    height: 32px;
+//   Input: styled.input`
+//     width: 100%;
+//     height: 32px;
 
-    box-sizing: border-box;
+//     box-sizing: border-box;
 
-    margin: 0 0 14px;
-    border: 1px solid ${ACHROMATIC[6]};
+//     margin: 0 0 14px;
+//     border: 1px solid ${ACHROMATIC[6]};
 
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 14px;
+//     line-height: 16px;
 
-    color: ${ACHROMATIC[3]};
+//     color: ${ACHROMATIC[3]};
 
-    padding: 0 8px;
+//     padding: 0 8px;
 
-    outline: none;
+//     outline: none;
 
-    &::placeholder {
-      font-style: normal;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 16px;
+//     &::placeholder {
+//       font-style: normal;
+//       font-weight: 300;
+//       font-size: 14px;
+//       line-height: 16px;
 
-      color: ${ACHROMATIC[9]};
-    }
-  `,
-};
+//       color: ${ACHROMATIC[9]};
+//     }
+//   `,
+// };
 
 function ConsoleComponent() {
   return (

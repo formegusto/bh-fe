@@ -1,7 +1,7 @@
 import { takeLatest } from "redux-saga/effects";
 import Api from "src/api";
 import createRequestSaga from "src/utils/createRequestSaga";
-import { SIGNIN, SIGNUP } from "./types";
+import { CHECK, SIGNIN, SIGNUP } from "./types";
 
 const signInSaga = createRequestSaga<string>(
   SIGNIN,
@@ -19,7 +19,10 @@ const signUpSaga = createRequestSaga<string>(
   "회원가입에 성공하였습니다."
 );
 
+const checkSaga = createRequestSaga(CHECK, Api["AuthAPI"].check, false, true);
+
 export default function* authSaga() {
   yield takeLatest(SIGNIN, signInSaga);
   yield takeLatest(SIGNUP, signUpSaga);
+  yield takeLatest(CHECK, checkSaga);
 }

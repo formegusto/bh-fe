@@ -1,11 +1,15 @@
+import { ConnectedProps } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Assets from "src/assets";
+import AuthConnector from "src/store/auth/connector";
 import { ContainerWidth1240 } from "src/styles/Container";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled from "styled-components";
 
-function HeaderComponent() {
+interface Props extends ConnectedProps<typeof AuthConnector> {}
+
+function HeaderComponent({ user }: Props) {
   return (
     <>
       <Wrap>
@@ -57,7 +61,11 @@ function HeaderComponent() {
                 </Nav.Main.Item>
               </NavLink>
               <NavLink to="/auth/signin">
-                <Nav.Main.Item>Login</Nav.Main.Item>
+                {user ? (
+                  <Nav.Main.Item>{user.username}</Nav.Main.Item>
+                ) : (
+                  <Nav.Main.Item>Login</Nav.Main.Item>
+                )}
               </NavLink>
             </Nav.Main.Block>
           </Nav.Wrap>
@@ -206,7 +214,7 @@ const Nav = {
       padding: 10px 10px 20px 150px;
 
       box-sizing: border-box;
-      background: rgba(38, 68, 109, 0.7);
+      background: rgba(38, 68, 109);
 
       display: flex;
       flex-direction: column;
@@ -239,4 +247,4 @@ const Nav = {
   },
 };
 
-export default HeaderComponent;
+export default AuthConnector(HeaderComponent);

@@ -29,9 +29,8 @@ export default function createRequestSaga<P = any, AR = any>(
           symKey
         ) as any;
       }
-      const response: AxiosResponse<AR> = yield call(request, action.payload);
 
-      console.log(response);
+      const response: AxiosResponse<AR> = yield call(request, action.payload);
       if (isDecrypt) {
         const symKey: string = yield select(
           (state) => state.sessionCert.symmetricKey

@@ -11,6 +11,7 @@ import createSagaMW from "@redux-saga/core";
 import RootSaga from "./store/saga";
 import AlertModal from "./containers/common/AlertModal";
 import SessionCertConfig from "./containers/common/SessionCertConfig";
+import AuthCheck from "./containers/auth/AuthCheck";
 
 const sagaMW = createSagaMW();
 const store = createStore(
@@ -22,6 +23,7 @@ sagaMW.run(RootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <SessionCertConfig />
+    <AuthCheck />
     <AlertModal />
     <Router>
       <ScrollToTop />

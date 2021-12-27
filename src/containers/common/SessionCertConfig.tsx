@@ -22,6 +22,7 @@ function SessionCertConfig({
   saveSymKey,
   postSymKey,
   patchEstablish,
+  setAuth,
 }: Props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -88,6 +89,7 @@ function SessionCertConfig({
           client.interceptors.request.use(
             (config) => {
               config.headers = {
+                ...config.headers,
                 "session-cert-id": id.toString(),
                 ...REQUEST_ENC_HEADER,
               };
@@ -98,10 +100,12 @@ function SessionCertConfig({
               return Promise.reject(error);
             }
           );
+          const auth = sessionStorage.getItem("auth");
+          if (auth) setAuth(auth);
         }, 2000);
       }, 2000);
     }
-  }, [symmetricKey, id]);
+  }, [symmetricKey, id, setAuth]);
 
   return success ? (
     <></>

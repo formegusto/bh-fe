@@ -7,3 +7,5 @@ export const signIn = (encBody: string) =>
 
 export const signUp = (encBody: string) =>
   client.post(`${BASEPATH}/signup`, encBody);
+
+export const check = () => client.get(`${BASEPATH}/check`);
