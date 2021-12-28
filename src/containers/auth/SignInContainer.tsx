@@ -14,9 +14,14 @@ function SignInContainer({ signIn }: Props) {
 
   const onSubmit: SubmitHandler<RequestSignIn> = React.useCallback(
     (data) => {
-      signIn(data);
-
-      navigate("/");
+      signIn({
+        ...data,
+        clickEvent: {
+          success: () => {
+            navigate("/");
+          },
+        },
+      });
     },
     [navigate, signIn]
   );

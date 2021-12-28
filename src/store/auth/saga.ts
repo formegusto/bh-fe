@@ -4,23 +4,34 @@ import createRequestSaga from "src/utils/createRequestSaga";
 import { showAlert } from "../alert/actions";
 import { CHECK, CLEANAUTH, LOGOUT, SIGNIN, SIGNUP } from "./types";
 
-const signInSaga = createRequestSaga<string>(
-  SIGNIN,
-  Api["AuthAPI"].signIn,
-  true,
-  true,
-  "로그인 되었습니다."
-);
+const signInSaga = createRequestSaga<string>(SIGNIN, Api["AuthAPI"].signIn, {
+  encryption: {
+    isEncrypt: true,
+    isDecrypt: true,
+  },
+  alert: {
+    infoMessage: "로그인 되었습니다.",
+    isShowError: true,
+  },
+});
 
-const signUpSaga = createRequestSaga<string>(
-  SIGNUP,
-  Api["AuthAPI"].signUp,
-  true,
-  true,
-  "회원가입에 성공하였습니다."
-);
+const signUpSaga = createRequestSaga<string>(SIGNUP, Api["AuthAPI"].signUp, {
+  encryption: {
+    isEncrypt: true,
+    isDecrypt: true,
+  },
+  alert: {
+    infoMessage: "회원가입에 성공하였습니다.",
+    isShowError: true,
+  },
+});
 
-const checkSaga = createRequestSaga(CHECK, Api["AuthAPI"].check, false, true);
+const checkSaga = createRequestSaga(CHECK, Api["AuthAPI"].check, {
+  encryption: {
+    isEncrypt: false,
+    isDecrypt: true,
+  },
+});
 
 function* logoutSaga() {
   yield put({

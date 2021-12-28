@@ -4,6 +4,21 @@ import { call, put, select } from "redux-saga/effects";
 import { showAlert } from "src/store/alert/actions";
 import { symmetricDecrypt, symmetricEncrypt } from "./ARIAUtils";
 
+type EncryptionOption = {
+  isEncrypt?: boolean;
+  isDecrypt?: boolean;
+};
+
+type AlertOption = {
+  infoMessage?: string;
+  isShowError?: boolean;
+};
+
+type Options = {
+  encryption?: EncryptionOption;
+  alert?: AlertOption;
+};
+
 interface SagaAction<Payload = any> extends Action<string> {
   payload: Payload;
   error?: boolean;
@@ -12,65 +27,86 @@ interface SagaAction<Payload = any> extends Action<string> {
 export default function createRequestSaga<P = any, AR = any>(
   type: string,
   request: (...params: P[]) => Promise<AxiosResponse<AR>>,
-  isEncrypt?: boolean,
-  isDecrypt?: boolean,
-  infoMessage?: string,
-  isShowError?: boolean
+  options?: Options
 ) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action: SagaAction<P>) {
+    // clickevent 때어놓기
+    let clickEvent = null;
+
+    if (action.payload && (action.payload as any).clickEvent) {
+      clickEvent = (action.payload as any).clickEvent;
+      delete (action.payload as any).clickEvent;
+    }
     try {
-      if (isEncrypt) {
-        const symKey: string = yield select(
-          (state) => state.sessionCert.symmetricKey
-        );
-        action.payload = symmetricEncrypt(
-          JSON.stringify(action.payload),
-          symKey
-        ) as any;
-      }
+      if (options?.encryption) {
+        const { isEncrypt, isDecrypt } = options.encryption;
 
-      const response: AxiosResponse<AR> = yield call(request, action.payload);
-      if (isDecrypt) {
-        const symKey: string = yield select(
-          (state) => state.sessionCert.symmetricKey
-        );
-        const decBody = symmetricDecrypt(response.data as any, symKey);
+        if (isEncrypt) {
+          const symKey: string = yield select(
+            (state) => state.sessionCert.symmetricKey
+          );
+          action.payload = symmetricEncrypt(
+            JSON.stringify(action.payload),
+            symKey
+          ) as any;
+        }
+        const response: AxiosResponse<AR> = yield call(request, action.payload);
+        if (isDecrypt) {
+          const symKey: string = yield select(
+            (state) => state.sessionCert.symmetricKey
+          );
+          const decBody = symmetricDecrypt(response.data as any, symKey);
 
-        yield put<SagaAction<AR>>({
-          type: SUCCESS,
-          payload: JSON.parse(decBody),
-        });
+          yield put<SagaAction<AR>>({
+            type: SUCCESS,
+            payload: JSON.parse(decBody),
+          });
+        } else {
+          yield put<SagaAction<AR>>({
+            type: SUCCESS,
+            payload: response.data,
+          });
+        }
       } else {
+        const response: AxiosResponse<AR> = yield call(request, action.payload);
+
         yield put<SagaAction<AR>>({
           type: SUCCESS,
           payload: response.data,
         });
       }
 
-      if (infoMessage) {
-        yield put(
-          showAlert({
-            type: "info",
-            action: type,
-            message: infoMessage,
-          })
-        );
+      if (options?.alert) {
+        if (options.alert.infoMessage) {
+          yield put(
+            showAlert({
+              type: "info",
+              action: type,
+              message: options.alert.infoMessage,
+              clickEvent: clickEvent,
+            })
+          );
+        }
       }
     } catch (e: any) {
       yield put({
         type: FAILURE,
       });
-      if (!isShowError)
-        yield put(
-          showAlert({
-            type: "error",
-            action: type,
-            message: e.response.data.error.message,
-          })
-        );
+      if (options?.alert) {
+        if (options.alert.isShowError) {
+          yield put(
+            showAlert({
+              type: "error",
+              action: type,
+              message: e.response.data.error.message,
+              clickEvent: clickEvent,
+            })
+          );
+        }
+      }
     }
   };
 }

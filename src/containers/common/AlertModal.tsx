@@ -81,6 +81,7 @@ function AlertModal({ open, alert, hideAlert }: Props) {
       document.body.classList.remove("modal-open");
     }
   }, [open]);
+
   return (
     <StyledDialog
       type={open && alert ? alert.type : null}
@@ -103,8 +104,21 @@ function AlertModal({ open, alert, hideAlert }: Props) {
         <Button
           id="alert-model-button"
           variant="outlined"
-          onClick={hideAlert}
+          // onClick={hideAlert}
           color={alert ? alert.type : undefined}
+          onClick={() => {
+            let clickEvent = null;
+            if (alert && alert.clickEvent) {
+              clickEvent =
+                alert.type === "info"
+                  ? alert.clickEvent.success
+                  : alert.clickEvent.failure;
+            }
+
+            if (clickEvent) clickEvent();
+
+            hideAlert();
+          }}
           focusRipple
         >
           확인

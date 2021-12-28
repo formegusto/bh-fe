@@ -1,13 +1,15 @@
 import React from "react";
 import { ConnectedProps } from "react-redux";
 import client from "src/api/client";
+import { REQUEST_ENC_HEADER } from "src/api/types";
 import AuthConnector from "src/store/auth/connector";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
-function AuthCheck({ auth, check, user, error }: Props) {
+function AuthCheck({ auth, check, user, error, id }: Props) {
   React.useEffect(() => {
     if (auth && !user) {
       sessionStorage.setItem("auth", auth);
+      console.log("새로 로그인 하면 바꿔드림", auth);
       client.interceptors.request.use(
         (config) => {
           config.headers = {
@@ -24,8 +26,28 @@ function AuthCheck({ auth, check, user, error }: Props) {
       check();
     }
 
-    if (!auth && !user && error) sessionStorage.removeItem("auth");
-  }, [auth, check, user, error]);
+    if (!auth && !user) {
+      if (error) {
+        sessionStorage.removeItem("auth");
+      }
+      // client.interceptors.request.use(
+      //   (config) => {
+      //     config.headers = {
+      //       ...config.headers,
+      //       ...(id && {
+      //         "session-cert-id": id.toString(),
+      //         ...REQUEST_ENC_HEADER,
+      //       }),
+      //     };
+
+      //     return config;
+      //   },
+      //   (err) => {
+      //     return Promise.reject(err);
+      //   }
+      // );
+    }
+  }, [auth, check, user, error, id]);
 
   return <></>;
 }

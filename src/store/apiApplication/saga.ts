@@ -8,9 +8,16 @@ import { SET_AUTH_NEW_APPLICATION } from "../auth/types";
 const applyApiSaga = createRequestSaga<string>(
   APPLY_API,
   Api["ApiApplicationAPI"].applyApi,
-  true,
-  true,
-  "API 신청이 완료되었습니다."
+  {
+    encryption: {
+      isEncrypt: true,
+      isDecrypt: true,
+    },
+    alert: {
+      infoMessage: "API 신청이 완료되었습니다.",
+      isShowError: true,
+    },
+  }
 );
 
 function* setNewApplicationSaga(action: Action<ApiApplication>) {

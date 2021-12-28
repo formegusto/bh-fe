@@ -1,5 +1,6 @@
 import { createAction } from "redux-actions";
 import { ApiApplication } from "../apiApplication/types";
+import { Request } from "../types";
 import {
   CHECK,
   LOGOUT,
@@ -11,8 +12,8 @@ import {
   SIGNUP,
 } from "./types";
 
-export const signIn = createAction<RequestSignIn>(SIGNIN);
-export const signUp = createAction<RequestSignUp>(SIGNUP);
+export const signIn = createAction<Request<RequestSignIn>>(SIGNIN);
+export const signUp = createAction<Request<RequestSignUp>>(SIGNUP);
 export const check = createAction(CHECK);
 export const setAuth = createAction<string>(SETAUTH);
 export const setNewApplication = createAction<ApiApplication>(

@@ -57,9 +57,14 @@ function SignUpContainer({ signUp }: Props) {
         email: data.email,
         phone: data.phone,
       };
-      signUp(reqSignUp);
-
-      navigate("/");
+      signUp({
+        ...reqSignUp,
+        clickEvent: {
+          success: () => {
+            navigate("/");
+          },
+        },
+      });
     },
     [navigate, signUp]
   );
