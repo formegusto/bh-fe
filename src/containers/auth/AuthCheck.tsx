@@ -5,11 +5,13 @@ import AuthConnector from "src/store/auth/connector";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
 function AuthCheck({ auth, check, user, error, id }: Props) {
+  const refIntercetor = React.useRef<number>();
+
   React.useEffect(() => {
     if (auth && !user) {
       sessionStorage.setItem("auth", auth);
       console.log("새로 로그인 하면 바꿔드림", auth);
-      client.interceptors.request.use(
+      const interceptor = client.interceptors.request.use(
         (config) => {
           config.headers = {
             ...config.headers,
@@ -22,6 +24,7 @@ function AuthCheck({ auth, check, user, error, id }: Props) {
           return Promise.reject(error);
         }
       );
+      refIntercetor.current = interceptor;
       check();
     }
 
@@ -29,22 +32,9 @@ function AuthCheck({ auth, check, user, error, id }: Props) {
       if (error) {
         sessionStorage.removeItem("auth");
       }
-      // client.interceptors.request.use(
-      //   (config) => {
-      //     config.headers = {
-      //       ...config.headers,
-      //       ...(id && {
-      //         "session-cert-id": id.toString(),
-      //         ...REQUEST_ENC_HEADER,
-      //       }),
-      //     };
-
-      //     return config;
-      //   },
-      //   (err) => {
-      //     return Promise.reject(err);
-      //   }
-      // );
+      if (refIntercetor.current) {
+        client.interceptors.request.eject(refIntercetor.current);
+      }
     }
   }, [auth, check, user, error, id]);
 
