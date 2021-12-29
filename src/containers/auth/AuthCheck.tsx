@@ -1,7 +1,6 @@
 import React from "react";
 import { ConnectedProps } from "react-redux";
 import client from "src/api/client";
-import { REQUEST_ENC_HEADER } from "src/api/types";
 import AuthConnector from "src/store/auth/connector";
 
 interface Props extends ConnectedProps<typeof AuthConnector> {}
