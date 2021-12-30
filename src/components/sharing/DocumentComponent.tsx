@@ -9,26 +9,49 @@ import TitleCode from "../common/TitleCode";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import { Fab } from "@mui/material";
 import ApplyDialog, { ApplyDialogConfig } from "./ApplyDialog";
+import { ApiApplication, API_STATUS } from "src/store/apiApplication/types";
+import CodeIcon from "@mui/icons-material/Code";
 
 type ConfigProps = {
   show: () => void;
   open: boolean;
+  application?: ApiApplication | null;
+  moveConsole: () => void;
 };
 
 interface Props extends ApplyDialogConfig, ConfigProps {}
 
-function DocumentComponent({ hide, show, open }: Props) {
+function DocumentComponent({
+  hide,
+  show,
+  open,
+  application,
+  moveConsole,
+}: Props) {
   return (
     <Wrap>
-      <Fab
-        variant="extended"
-        className="fab-apply"
-        color="primary"
-        onClick={show}
-      >
-        <HistoryEduIcon sx={{ mr: 1 }} />
-        신청하기
-      </Fab>
+      {application && application.status === API_STATUS.NONE ? (
+        <Fab
+          variant="extended"
+          className="fab-apply"
+          color="primary"
+          onClick={show}
+        >
+          <HistoryEduIcon sx={{ mr: 1 }} />
+          신청하기
+        </Fab>
+      ) : (
+        <Fab
+          variant="extended"
+          className="fab-apply"
+          color="primary"
+          onClick={moveConsole}
+        >
+          <CodeIcon sx={{ mr: 1 }} />
+          콘솔이동
+        </Fab>
+      )}
+
       {open && <ApplyDialog hide={hide} />}
 
       <h2 className="subtitle">Document</h2>
