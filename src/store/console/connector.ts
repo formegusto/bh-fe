@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import { RootReducer } from "..";
 import { showAlert } from "../alert/actions";
+import * as actions from "./actions";
 
 const mapState = ({ console, auth }: RootReducer) => ({
   ...console,
-  application: auth.user?.apiApplication,
+  user: auth.user,
 });
 
-const ConsoleConnector = connect(mapState, { showAlert });
+const ConsoleConnector = connect(mapState, { ...actions, showAlert });
 export default ConsoleConnector;

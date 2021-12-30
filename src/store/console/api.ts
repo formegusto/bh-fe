@@ -22,6 +22,8 @@ export const ConsoleApi = (req: RequestConsole) =>
       req.path
     )}?${qs.stringify(req.query, { skipNulls: true })}`,
     {
-      ...(req.header as any),
+      headers: {
+        ...req.header,
+      },
     }
   );
