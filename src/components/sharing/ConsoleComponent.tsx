@@ -103,6 +103,8 @@ type Props = {
   changeQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRequestApi: () => void;
   result?: string | null;
+  decryptResult?: string | null;
+  onDecrypt: () => void;
 };
 
 function ConsoleComponent({
@@ -113,6 +115,8 @@ function ConsoleComponent({
   changeQuery,
   onRequestApi,
   result,
+  decryptResult,
+  onDecrypt,
 }: Props) {
   return (
     <Wrap>
@@ -295,17 +299,30 @@ function ConsoleComponent({
               </Button>
             </ButtonGroup>
           </Card>
-          <Card title="RESPONSE">
-            <TitleCode contents={result ? result : ""} />
-            <ButtonGroup>
-              <Button type="button" color="primary" variant="contained">
-                DECRYPT
-              </Button>
-              <Button type="button" color="primary" variant="contained">
-                EXPORT EXCEL
-              </Button>
-            </ButtonGroup>
-          </Card>
+          {result && (
+            <Card title="RESPONSE">
+              <TitleCode
+                contents={
+                  decryptResult
+                    ? JSON.stringify(JSON.parse(decryptResult), null, "\t")
+                    : result
+                }
+              />
+              <ButtonGroup>
+                <Button
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  onClick={onDecrypt}
+                >
+                  DECRYPT
+                </Button>
+                <Button type="button" color="primary" variant="contained">
+                  EXPORT EXCEL
+                </Button>
+              </ButtonGroup>
+            </Card>
+          )}
         </Card>
       </CardGroup>
     </Wrap>

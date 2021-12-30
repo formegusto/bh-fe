@@ -1,5 +1,7 @@
 import { handleActions } from "redux-actions";
+import { symmetricDecrypt } from "src/utils/ARIAUtils";
 import {
+  DECRYPT_RESPONSE,
   INIT_CONSOLE,
   REQUEST_API_FAILURE,
   REQUEST_API_SUCCESS,
@@ -30,6 +32,10 @@ const consoleReducer = handleActions<ConsoleStore, Payload>(
     [REQUEST_API_FAILURE]: (_, action) => ({
       result: action.payload,
       decryptResult: null,
+    }),
+    [DECRYPT_RESPONSE]: (state, action) => ({
+      ...state,
+      decryptResult: symmetricDecrypt(state.result!, action.payload),
     }),
   },
   consoleStore

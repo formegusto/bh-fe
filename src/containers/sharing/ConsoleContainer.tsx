@@ -11,13 +11,22 @@ import {
 } from "src/store/console/types";
 
 interface Props extends ConnectedProps<typeof ConsoleConnector> {}
-function ConsoleContainer({ user, showAlert, requestApi, result }: Props) {
+function ConsoleContainer({
+  user,
+  showAlert,
+  requestApi,
+  result,
+  decryptResult,
+  initConsole,
+  decryptResponse,
+}: Props) {
   const navigate = useNavigate();
   const [header, setHeader] = React.useState<ConsoleHeader>();
   const [path, setPath] = React.useState<ConsolePath>();
   const [query, setQuery] = React.useState<ConsoleQuery>();
 
   React.useEffect(() => {
+    initConsole();
     if (user) {
       if (
         user.apiApplication &&
@@ -58,7 +67,7 @@ function ConsoleContainer({ user, showAlert, requestApi, result }: Props) {
         });
       }
     }
-  }, [navigate, showAlert, user]);
+  }, [navigate, showAlert, user, initConsole]);
 
   const changePath = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +102,12 @@ function ConsoleContainer({ user, showAlert, requestApi, result }: Props) {
       });
   }, [header, path, query, requestApi]);
 
+  const onDecrypt = React.useCallback(() => {
+    if (user!.apiApplication) {
+      decryptResponse(user!.apiApplication.symmetricKey!);
+    }
+  }, [decryptResponse, user]);
+
   return (
     <ConsoleComponent
       header={header}
@@ -102,6 +117,8 @@ function ConsoleContainer({ user, showAlert, requestApi, result }: Props) {
       changeQuery={changeQuery}
       onRequestApi={onRequestApi}
       result={result}
+      decryptResult={decryptResult}
+      onDecrypt={onDecrypt}
     />
   );
 }

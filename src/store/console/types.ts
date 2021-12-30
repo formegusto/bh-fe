@@ -35,3 +35,4 @@ export type ConsoleQuery = {
 export const INIT_CONSOLE = "console/init";
 export const [REQUEST_API, REQUEST_API_SUCCESS, REQUEST_API_FAILURE] =
   createActionTypes("console/request");
+export const DECRYPT_RESPONSE = "console/decrypt";
