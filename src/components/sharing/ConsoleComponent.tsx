@@ -11,7 +11,8 @@ import {
 } from "src/store/console/types";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DateTimePicker from "@mui/lab/MobileDateTimePicker";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import moment from "moment";
 
 // type InputConfigProps = {
 //   labelText: string;
@@ -175,36 +176,57 @@ function ConsoleComponent({
               />
               <DateTimePicker
                 label="startDate"
-                readOnly
-                value={new Date()}
+                value={
+                  query?.startDate &&
+                  moment(query.startDate).set({
+                    s: 0,
+                    ms: 0,
+                  })
+                }
                 onChange={(newValue) => {
-                  console.log(newValue);
+                  const e: any = {
+                    target: {
+                      name: "startDate",
+                      value: moment(newValue)
+                        .toISOString(true)
+                        .split("+")[0]
+                        .split(".")[0],
+                    },
+                  };
+                  changeQuery(e);
                 }}
                 renderInput={(props) => (
                   <TextField
                     {...props}
                     fullWidth
                     name="startDate"
-                    placeholder="NOW - 7day"
                     size="small"
                   />
                 )}
               />
               <DateTimePicker
                 label="endDate"
-                readOnly
-                value={new Date()}
+                value={
+                  query?.endDate &&
+                  moment(query.endDate).set({
+                    s: 0,
+                    ms: 0,
+                  })
+                }
                 onChange={(newValue) => {
-                  console.log(newValue);
+                  const e: any = {
+                    target: {
+                      name: "endDate",
+                      value: moment(newValue)
+                        .toISOString(true)
+                        .split("+")[0]
+                        .split(".")[0],
+                    },
+                  };
+                  changeQuery(e);
                 }}
                 renderInput={(props) => (
-                  <TextField
-                    {...props}
-                    fullWidth
-                    name="endDate"
-                    placeholder="startDate + 7day"
-                    size="small"
-                  />
+                  <TextField {...props} fullWidth name="endDate" size="small" />
                 )}
               />
               <TextField
@@ -251,6 +273,7 @@ function ConsoleComponent({
                 }) !== ""
                   ? `?${qs.stringify(query, {
                       skipNulls: true,
+                      encode: false,
                     })}`
                   : ""
               } -H “Accept:${header && header.accept}” -H “Authorization:${
