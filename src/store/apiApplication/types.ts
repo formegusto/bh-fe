@@ -20,6 +20,8 @@ export type ApiApplication = {
   id?: number;
   status?: API_STATUS;
   purpose?: string;
+  apiKey?: string;
+  symmetricKey?: string;
 };
 
 export interface ResponseApiApplication extends Response<any> {

@@ -48,6 +48,10 @@ const Wrap = styled.div<StyleProps>`
     css`
       border: 2px solid ${ACHROMATIC[14]};
     `}
+
+  & .MuiFormHelperText-root {
+    margin: 4px 2px 0;
+  }
 `;
 
 const Title = styled.h1`

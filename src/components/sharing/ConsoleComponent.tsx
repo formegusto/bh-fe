@@ -3,6 +3,12 @@ import styled from "styled-components";
 import Card from "../common/Card";
 import CardGroup from "../common/CardGroup";
 import TitleCode from "../common/TitleCode";
+import qs from "qs";
+import {
+  ConsoleHeader,
+  ConsolePath,
+  ConsoleQuery,
+} from "src/store/console/types";
 
 // type InputConfigProps = {
 //   labelText: string;
@@ -85,7 +91,21 @@ import TitleCode from "../common/TitleCode";
 //   `,
 // };
 
-function ConsoleComponent() {
+type Props = {
+  header?: ConsoleHeader;
+  path?: ConsolePath;
+  query?: ConsoleQuery;
+  changePath: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+function ConsoleComponent({
+  header,
+  path,
+  query,
+  changePath,
+  changeQuery,
+}: Props) {
   return (
     <Wrap>
       <h2 className="subtitle">Console</h2>
@@ -98,73 +118,121 @@ function ConsoleComponent() {
           <Card title="CONFIG PATH PARAMETER" className="padding-card">
             <TextField
               label="buildingId"
+              name="buildingId"
               placeholder="input buildingId"
               size="small"
               fullWidth
               autoFocus
+              onChange={changePath}
             />
             <TextField
               label="unitId"
+              name="unitId"
               placeholder="input unitId"
               size="small"
+              onChange={changePath}
               fullWidth
+              disabled={!path?.buildingId}
+              helperText={!path?.buildingId && "건물 번호를 먼저 설정해주세요."}
             />
             <TextField
               label="sensorId"
+              name="sensorId"
               placeholder="input sensorId"
               size="small"
+              onChange={changePath}
               fullWidth
+              disabled={!path?.buildingId || !path?.unitId}
+              helperText={
+                !path?.buildingId
+                  ? "건물 번호를 먼저 설정해주세요."
+                  : !path.unitId
+                  ? "호 번호를 먼저 설정해주세요."
+                  : ""
+              }
             />
           </Card>
           <Card title="CONFIG QUERY PARAMETER" className="padding-card">
             <TextField
               label="include"
+              name="include"
               placeholder="all"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="exclude"
+              name="exclude"
               placeholder="null"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="startDate"
+              name="startDate"
               placeholder="NOW - 7day"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="endDate"
+              name="endDate"
               placeholder="startDate + 7day"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="interval"
+              name="interval"
               placeholder="null"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="limit"
+              name="limit"
               placeholder="null"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
             <TextField
               label="offset"
+              name="offset"
               placeholder="null"
               size="small"
               fullWidth
+              onChange={changeQuery}
             />
           </Card>
         </Card>
         <Card>
           <Card title="REQUEST URI">
             <TitleCode
-              contents={`curl -x “GET” http://{bems-hdms-domain}/api/bems-hdms/1?include=temperature,humidity,lux&startDate=2021-12-18T13:05&end Date=2021-12-18T13:10 -H “Accept:text/plain” -H “Authorization:*******************************”`}
+              contents={`curl -x “GET” http://${
+                process.env.REACT_APP_API_SERVER
+              }/api/bems-hdms${path?.buildingId ? "/" + path.buildingId : ""}${
+                path?.buildingId && path?.unitId ? "/" + path.unitId : ""
+              }${
+                path?.buildingId && path?.unitId && path?.sensorId
+                  ? "/" + path.sensorId
+                  : ""
+              }${
+                qs.stringify(query, {
+                  skipNulls: true,
+                }) !== ""
+                  ? `?${qs.stringify(query, {
+                      skipNulls: true,
+                    })}`
+                  : ""
+              } -H “Accept:${header && header.accept}” -H “Authorization:${
+                header && header.authorization
+              }”`}
             />
             <ButtonGroup>
               <Button type="button" color="primary" variant="contained">

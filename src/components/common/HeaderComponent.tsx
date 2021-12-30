@@ -52,7 +52,7 @@ function HeaderComponent({ user, check, logout }: Props) {
               >
                 <Nav.Main.Item>
                   Data Sharing
-                  {user && (
+                  {user && user!.apiApplication!.status !== API_STATUS.NONE && (
                     <Nav.Main.DropDown>
                       <NavLink
                         to="/sharing"
@@ -61,6 +61,7 @@ function HeaderComponent({ user, check, logout }: Props) {
                       >
                         <Nav.Main.DropDownItem>Document</Nav.Main.DropDownItem>
                       </NavLink>
+
                       <NavLink
                         to="/sharing/console"
                         className={({ isActive }) => (isActive ? "active" : "")}

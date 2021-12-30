@@ -6,10 +6,10 @@ import InformationPage from "./pages/InformationPage";
 import SharingPage from "./pages/SharingPage";
 import AuthPage from "./pages/AuthPage";
 import RootPage from "./pages";
-import ConsoleComponent from "./components/sharing/ConsoleComponent";
 import SignInContainer from "./containers/auth/SignInContainer";
 import SignUpContainer from "./containers/auth/SignUpContainer";
 import DocumentContainer from "./containers/sharing/DocumentContainer";
+import ConsoleContainer from "./containers/sharing/ConsoleContainer";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="information" element={<InformationPage />} />
           <Route path="sharing" element={<SharingPage />}>
             <Route index element={<DocumentContainer />} />
-            <Route path="console" element={<ConsoleComponent />} />
+            <Route path="console" element={<ConsoleContainer />} />
           </Route>
         </Route>
         <Route path="/auth" element={<AuthPage />}>
