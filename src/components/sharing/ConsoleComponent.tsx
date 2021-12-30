@@ -9,6 +9,9 @@ import {
   ConsolePath,
   ConsoleQuery,
 } from "src/store/console/types";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DateTimePicker from "@mui/lab/MobileDateTimePicker";
 
 // type InputConfigProps = {
 //   labelText: string;
@@ -153,62 +156,82 @@ function ConsoleComponent({
             />
           </Card>
           <Card title="CONFIG QUERY PARAMETER" className="padding-card">
-            <TextField
-              label="include"
-              name="include"
-              placeholder="all"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="exclude"
-              name="exclude"
-              placeholder="null"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="startDate"
-              name="startDate"
-              placeholder="NOW - 7day"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="endDate"
-              name="endDate"
-              placeholder="startDate + 7day"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="interval"
-              name="interval"
-              placeholder="null"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="limit"
-              name="limit"
-              placeholder="null"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
-            <TextField
-              label="offset"
-              name="offset"
-              placeholder="null"
-              size="small"
-              fullWidth
-              onChange={changeQuery}
-            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <TextField
+                label="include"
+                name="include"
+                placeholder="all"
+                size="small"
+                fullWidth
+                onChange={changeQuery}
+              />
+              <TextField
+                label="exclude"
+                name="exclude"
+                placeholder="null"
+                size="small"
+                fullWidth
+                onChange={changeQuery}
+              />
+              <DateTimePicker
+                label="startDate"
+                readOnly
+                value={new Date()}
+                onChange={(newValue) => {
+                  console.log(newValue);
+                }}
+                renderInput={(props) => (
+                  <TextField
+                    {...props}
+                    fullWidth
+                    name="startDate"
+                    placeholder="NOW - 7day"
+                    size="small"
+                  />
+                )}
+              />
+              <DateTimePicker
+                label="endDate"
+                readOnly
+                value={new Date()}
+                onChange={(newValue) => {
+                  console.log(newValue);
+                }}
+                renderInput={(props) => (
+                  <TextField
+                    {...props}
+                    fullWidth
+                    name="endDate"
+                    placeholder="startDate + 7day"
+                    size="small"
+                  />
+                )}
+              />
+              <TextField
+                label="interval"
+                name="interval"
+                placeholder="null"
+                size="small"
+                fullWidth
+                onChange={changeQuery}
+              />
+              <TextField
+                label="limit"
+                name="limit"
+                placeholder="null"
+                size="small"
+                fullWidth
+                onChange={changeQuery}
+              />
+              <TextField
+                label="offset"
+                name="offset"
+                placeholder="null"
+                size="small"
+                fullWidth
+                onChange={changeQuery}
+              />
+            </LocalizationProvider>
           </Card>
         </Card>
         <Card>
