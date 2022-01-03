@@ -24,11 +24,12 @@ export type Unit = {
 };
 
 export type Sensor = Unit & {
-  timeReports: Report;
+  timeReports: Report[];
 };
 
 export type Report = {
-  createdAt: Date;
+  [key: string]: any;
+  createdAt: string;
 
   isStay?: boolean;
   residentCount?: number;
@@ -40,6 +41,16 @@ export type Report = {
   satisfaction?: number;
 };
 
+export const ReportToKr: { [key: string]: any } = {
+  isStay: "재실유무",
+  residentCount: "거주자 수",
+  temperature: "온도",
+  humidity: "습도",
+  lux: "조도",
+  skinTemperature: "피부온도",
+  residentDistribution: "거주자 분포",
+  satisfaction: "만족도",
+};
 // Redux Action Type
 export const [GET_INFOS, GET_INFOS_SUCCESS, GET_INFOS_FAILURE] =
   createActionTypes("info/get_infos");

@@ -21,6 +21,7 @@ function InformationComponent({
   viewVisual,
   buildings,
   units,
+  sensors,
   selBuilding: changeBuilding,
   selUnit: changeUnit,
 }: Props) {
@@ -95,7 +96,7 @@ function InformationComponent({
             changeSelUnit={changeSelUnit}
           />
         )}
-        {viewUnits && selUnit && <Visualization />}
+        {sensors && sensors.length > 0 && <Visualization sensors={sensors} />}
       </ContainerWidth1240>
     </Wrap>
   );

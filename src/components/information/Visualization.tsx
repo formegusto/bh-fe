@@ -1,57 +1,44 @@
 import React from "react";
+import { ReportToKr, Sensor } from "src/store/information/types";
 import { ACHROMATIC, GRAPHCOLORS } from "src/styles/Palette";
 import styled from "styled-components";
+import moment from "moment";
 
-type Range = {
-  min: number;
-  max: number;
-};
-
-type Props = {
-  title: string;
-  id: number;
-  interval: number;
-  label: string;
-  startTime: number;
-  range: Range;
-};
-
-function VisualItem({ title, interval, label, startTime, range }: Props) {
+function VisualItem({ name, timeReports }: Sensor) {
   const visualRef = React.useRef<HTMLCanvasElement>(null);
   const chartRef = React.useRef<any>(null);
 
   const labels = React.useRef<any>(
-    Array.from({ length: 10 }).map(
-      (_, idx) => `${startTime}:0:${0 + (interval / 1000) * idx}`
+    timeReports.map((_) => _.createdAt.replace("T", " ").split(".")[0])
+  );
+  const infoKeys = React.useRef<any>(
+    Object.keys(timeReports[0]).reduce<any>(
+      (acc, cur) => (cur !== "createdAt" ? acc.concat(cur) : acc),
+      []
     )
   );
 
-  // 초기 랜덤값 10개치 생성
+  console.log(infoKeys);
 
+  // 초기 랜덤값 10개치 생성
   React.useEffect(() => {
     if (visualRef) {
-      console.log("몇번 도니");
       const Chart = (window as any).Chart;
       const ctx = visualRef.current?.getContext("2d");
-      const ranColorIdx = Math.floor(Math.random() * GRAPHCOLORS.length);
       const chart = new Chart(ctx, {
         type: "line",
         data: {
           labels: labels.current,
-          datasets: [
-            {
-              label: label,
-              data: Array.from({ length: 10 }).map(() =>
-                label === "ResidentCount"
-                  ? Math.floor(
-                      Math.random() * (range.max - range.min) + range.min
-                    )
-                  : Math.random() * (range.max - range.min) + range.min
-              ),
-              borderColor: GRAPHCOLORS[ranColorIdx],
-              backgroundColor: GRAPHCOLORS[ranColorIdx],
-            },
-          ],
+          datasets: infoKeys.current.map((k: string) => {
+            const randomColor =
+              GRAPHCOLORS[Math.floor(Math.random() * GRAPHCOLORS.length)];
+            return {
+              label: ReportToKr[k],
+              data: timeReports.reduce((acc, cur) => acc.concat(cur[k]), []),
+              borderColor: randomColor,
+              backgroundColor: randomColor,
+            };
+          }),
         },
         options: {
           animation: {
@@ -62,8 +49,10 @@ function VisualItem({ title, interval, label, startTime, range }: Props) {
       chartRef.current = chart;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, label]);
+  }, [name]);
 
+  // interval 함수
+  /*
   React.useEffect(
     () => {
       setInterval(() => {
@@ -102,10 +91,10 @@ function VisualItem({ title, interval, label, startTime, range }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-
+*/
   return (
     <ItemStyle.Block>
-      <ItemStyle.Title>{title}</ItemStyle.Title>
+      <ItemStyle.Title>{name}</ItemStyle.Title>
       <ItemStyle.VisualBlock>
         <ItemStyle.Visual ref={visualRef} />
       </ItemStyle.VisualBlock>
@@ -149,55 +138,18 @@ const ItemStyle = {
   `,
 };
 
-function Visualization() {
+type VisualProps = {
+  sensors: Sensor[];
+};
+
+function Visualization({ sensors }: VisualProps) {
   const refWrap = React.useRef<HTMLDivElement>(null);
 
   return (
     <Wrap ref={refWrap} id="visuals-wrap">
-      <VisualItem
-        title="온도 센서"
-        id={1}
-        interval={5500}
-        label="Temperature"
-        startTime={3}
-        range={{
-          min: 18,
-          max: 19.25,
-        }}
-      />
-      <VisualItem
-        title="습도 센서"
-        id={1}
-        interval={5000}
-        label="Humidity"
-        startTime={10}
-        range={{
-          min: 24,
-          max: 26,
-        }}
-      />
-      <VisualItem
-        title="조도 센서"
-        id={1}
-        interval={7500}
-        label="Humidity"
-        startTime={10}
-        range={{
-          min: 338,
-          max: 345,
-        }}
-      />
-      <VisualItem
-        title="거주자 수 센서"
-        id={2}
-        interval={8000}
-        label="ResidentCount"
-        startTime={2}
-        range={{
-          min: 10,
-          max: 13,
-        }}
-      />
+      {sensors.map((s) => (
+        <VisualItem {...s} />
+      ))}
     </Wrap>
   );
 }

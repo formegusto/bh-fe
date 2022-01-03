@@ -30,6 +30,14 @@ function InformationContainer({
     }
   }, [units]);
 
+  React.useEffect(() => {
+    if (sensors) {
+      if (sensors.length > 0) {
+        setViewVisual(true);
+      }
+    }
+  }, [sensors]);
+
   const selBuilding = React.useCallback(
     (id: number) => {
       getInfos({
@@ -56,6 +64,7 @@ function InformationContainer({
       viewVisual={viewVisual}
       buildings={buildings}
       units={units}
+      sensors={sensors}
       selBuilding={selBuilding}
       selUnit={selUnit}
     />
