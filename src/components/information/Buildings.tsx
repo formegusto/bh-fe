@@ -1,7 +1,8 @@
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
 import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
-import buildingItems, { BuildingItem } from "src/store/testDatas/BuildingItems";
+import { BuildingItem } from "src/store/testDatas/BuildingItems";
+import { Building } from "src/store/information/types";
 
 function BuildingItemView({
   name,
@@ -10,7 +11,14 @@ function BuildingItemView({
 }: StyledComponentProps<"div", {}, any, any> & BuildingItem) {
   return (
     <BuildingItemStyle.Block {...htmlProps}>
-      <BuildingItemStyle.Background src={image} alt={name} />
+      {image ? (
+        <BuildingItemStyle.Background
+          src={"http://localhost:8080" + image}
+          alt={name}
+        />
+      ) : (
+        <></>
+      )}
       <BuildingItemStyle.Shadow />
       <BuildingItemStyle.Title>{name}</BuildingItemStyle.Title>
     </BuildingItemStyle.Block>
@@ -104,10 +112,11 @@ const BuildingItemWrap = styled.div`
 
 type Props = {
   selBuilding: number | null;
-  changeSelBuilding: (idx: number) => void;
+  changeSelBuilding: (id: number) => void;
+  buildings: Building[];
 };
 
-function Buildings({ selBuilding, changeSelBuilding }: Props) {
+function Buildings({ selBuilding, changeSelBuilding, buildings }: Props) {
   return (
     <Wrap>
       <Title.Block>
@@ -115,12 +124,14 @@ function Buildings({ selBuilding, changeSelBuilding }: Props) {
         <MdAdsClick size={32} color={BLUE[1]} />
       </Title.Block>
       <BuildingItemWrap>
-        {buildingItems.map((_, idx) => (
+        {buildings.map((_) => (
           <BuildingItemView
             {..._}
-            key={idx}
-            className={`${selBuilding && selBuilding === idx ? "select" : ""} `}
-            onClick={() => changeSelBuilding(idx)}
+            key={_.id}
+            className={`${
+              selBuilding && selBuilding === _.id ? "select" : ""
+            } `}
+            onClick={() => changeSelBuilding(_.id)}
           />
         ))}
       </BuildingItemWrap>

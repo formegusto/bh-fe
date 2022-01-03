@@ -2,7 +2,7 @@ import Assets from "src/assets";
 
 export type BuildingItem = {
   name: string;
-  image: string;
+  image?: string;
 };
 
 const buildingItems: BuildingItem[] = [

@@ -149,18 +149,8 @@ const ItemStyle = {
   `,
 };
 
-type VisualsProps = {
-  changeViewVisual: (status: boolean) => void;
-};
-
-function Visualization({ changeViewVisual }: VisualsProps) {
+function Visualization() {
   const refWrap = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (refWrap) {
-      if (refWrap.current) changeViewVisual(true);
-    }
-  }, [changeViewVisual]);
 
   return (
     <Wrap ref={refWrap} id="visuals-wrap">

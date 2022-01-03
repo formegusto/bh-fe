@@ -1,32 +1,47 @@
 import React from "react";
+import { Building, Sensor, Unit } from "src/store/information/types";
 import { ContainerWidth1240 } from "src/styles/Container";
 import styled from "styled-components";
 import Buildings from "./Buildings";
 import Units from "./Units";
 import Visualization from "./Visualization";
 
-function InformationComponent() {
-  const [viewUnits, setViewUnits] = React.useState<boolean>(false);
-  const [viewVisual, setViewVisual] = React.useState<boolean>(false);
+type Props = {
+  viewUnits: boolean;
+  viewVisual: boolean;
+  buildings?: Building[] | null;
+  units?: Unit[] | null;
+  sensors?: Sensor[] | null;
+  selBuilding: (id: number) => void;
+  selUnit: (id: number) => void;
+};
 
+function InformationComponent({
+  viewUnits,
+  viewVisual,
+  buildings,
+  units,
+  selBuilding: changeBuilding,
+  selUnit: changeUnit,
+}: Props) {
   const [selBuilding, setSelBuilding] = React.useState<number | null>(null);
   const [selUnit, setSelUnit] = React.useState<number | null>(null);
 
-  const changeSelBuilding = React.useCallback((idx: number) => {
-    setSelBuilding(idx);
-  }, []);
+  const changeSelBuilding = React.useCallback(
+    (id: number) => {
+      changeBuilding(id);
+      setSelBuilding(id);
+    },
+    [changeBuilding]
+  );
 
-  const changeSelUnit = React.useCallback((idx: number) => {
-    setSelUnit(idx);
-  }, []);
-
-  const changeViewUnits = React.useCallback((status: boolean) => {
-    setViewUnits(status);
-  }, []);
-
-  const changeViewVisual = React.useCallback((status: boolean) => {
-    setViewVisual(status);
-  }, []);
+  const changeSelUnit = React.useCallback(
+    (id: number) => {
+      changeUnit(id);
+      setSelUnit(id);
+    },
+    [changeUnit]
+  );
 
   React.useEffect(() => {
     if (viewUnits) {
@@ -65,20 +80,22 @@ function InformationComponent() {
   return (
     <Wrap>
       <ContainerWidth1240>
-        <Buildings
-          selBuilding={selBuilding}
-          changeSelBuilding={changeSelBuilding}
-        />
-        {selBuilding && (
+        {buildings && (
+          <Buildings
+            buildings={buildings}
+            selBuilding={selBuilding}
+            changeSelBuilding={changeSelBuilding}
+          />
+        )}
+
+        {units && units.length > 0 && (
           <Units
+            units={units}
             selUnit={selUnit}
-            changeViewUnits={changeViewUnits}
             changeSelUnit={changeSelUnit}
           />
         )}
-        {viewUnits && selUnit && (
-          <Visualization changeViewVisual={changeViewVisual} />
-        )}
+        {viewUnits && selUnit && <Visualization />}
       </ContainerWidth1240>
     </Wrap>
   );

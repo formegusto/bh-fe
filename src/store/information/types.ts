@@ -1,9 +1,15 @@
 import createActionTypes from "src/utils/createActionTypes";
+import { Response } from "../types";
 
 // DataType
+export type ResponseGetInfo = Response<{
+  target: "building" | "unit" | "sensor";
+  data: Building[] | Unit[] | Sensor[];
+}>;
+
 export type InfosPath = {
-  target: string;
-  rootId: number;
+  target: "building" | "unit" | "sensor";
+  rootId?: number;
 };
 
 export type Building = {

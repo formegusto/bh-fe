@@ -1,8 +1,8 @@
 import styled, { StyledComponentProps } from "styled-components";
 import { MdAdsClick } from "react-icons/md";
 import { ACHROMATIC, BLUE } from "src/styles/Palette";
-import UnitItems from "src/store/testDatas/UnitItems";
 import React from "react";
+import { Unit } from "src/store/information/types";
 
 type Props = {
   name: string;
@@ -73,23 +73,13 @@ const UnitItemWrap = styled.div`
 `;
 
 type UnitsProps = {
+  units: Unit[];
   selUnit: number | null;
-  changeViewUnits: (status: boolean) => void;
   changeSelUnit: (idx: number) => void;
 };
 
-function Units({ selUnit, changeViewUnits, changeSelUnit }: UnitsProps) {
+function Units({ units, selUnit, changeSelUnit }: UnitsProps) {
   const refWrap = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (refWrap) {
-      if (refWrap.current) {
-        setTimeout(() => {
-          changeViewUnits(true);
-        });
-      }
-    }
-  }, [changeViewUnits]);
 
   return (
     <Wrap id="units-wrap" ref={refWrap}>
@@ -98,12 +88,12 @@ function Units({ selUnit, changeViewUnits, changeSelUnit }: UnitsProps) {
         <MdAdsClick size={32} color={BLUE[1]} />
       </Title.Block>
       <UnitItemWrap>
-        {UnitItems.map((_, idx) => (
+        {units.map((_) => (
           <UnitItemView
-            name={_}
-            key={idx}
-            className={`${selUnit === idx ? "select" : ""}`}
-            onClick={() => changeSelUnit(idx)}
+            name={_.name}
+            key={_.id}
+            className={`${selUnit === _.id ? "select" : ""}`}
+            onClick={() => changeSelUnit(_.id)}
           />
         ))}
       </UnitItemWrap>

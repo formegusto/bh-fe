@@ -1,5 +1,5 @@
 import Assets from "src/assets";
-import InformationComponent from "src/components/InformationComponent";
+import InformationContainer from "src/containers/information";
 import BasicTemplate from "src/templates/BasicTemplate";
 
 function InformationPage() {
@@ -11,7 +11,7 @@ function InformationPage() {
 적용된 건물의 기본정보(위치, 규모)와 건물내 설치된 센서정보를 확인할 수 있습니다. 데이터 (예비)사용자들은 수집/저장된 HUMAN 데이터들의 특성을 실시간으로 확인가능합니다.`}
       titleImage={Assets.Banner.SubBanner1}
     >
-      <InformationComponent />
+      <InformationContainer />
     </BasicTemplate>
   );
 }

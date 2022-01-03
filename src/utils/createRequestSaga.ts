@@ -92,6 +92,7 @@ export default function createRequestSaga<P = any, AR = any>(
         }
       }
     } catch (e: any) {
+      console.error(e);
       yield put({
         type: FAILURE,
       });

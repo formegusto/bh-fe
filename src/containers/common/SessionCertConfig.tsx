@@ -85,24 +85,25 @@ function SessionCertConfig({
 
   React.useEffect(() => {
     if (symmetricKey && id) {
+      client.interceptors.request.use(
+        (config) => {
+          config.headers = {
+            ...config.headers,
+            "session-cert-id": id.toString(),
+            ...REQUEST_ENC_HEADER,
+          };
+
+          return config;
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
       setTimeout(() => {
         setLoading(false);
         setTimeout(() => {
           setSuccess(true);
-          client.interceptors.request.use(
-            (config) => {
-              config.headers = {
-                ...config.headers,
-                "session-cert-id": id.toString(),
-                ...REQUEST_ENC_HEADER,
-              };
 
-              return config;
-            },
-            (error) => {
-              return Promise.reject(error);
-            }
-          );
           const auth = sessionStorage.getItem("auth");
           if (auth) setAuth(auth);
           document.body.classList.remove("modal-open");
