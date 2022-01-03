@@ -4,6 +4,7 @@ import auth from "./auth";
 import sessionCert from "./sessionCert";
 import apiApplication from "./apiApplication";
 import console from "./console";
+import information from "./information";
 
 const rootReducer = combineReducers({
   auth,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   alert,
   apiApplication,
   console,
+  information,
 });
 
 export type RootReducer = ReturnType<typeof rootReducer>;
