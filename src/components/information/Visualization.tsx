@@ -2,7 +2,6 @@ import React from "react";
 import { ReportToKr, Sensor } from "src/store/information/types";
 import { ACHROMATIC, GRAPHCOLORS } from "src/styles/Palette";
 import styled from "styled-components";
-import moment from "moment";
 
 function VisualItem({ name, timeReports }: Sensor) {
   const visualRef = React.useRef<HTMLCanvasElement>(null);

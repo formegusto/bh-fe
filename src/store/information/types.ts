@@ -51,6 +51,8 @@ export const ReportToKr: { [key: string]: any } = {
   residentDistribution: "거주자 분포",
   satisfaction: "만족도",
 };
+
 // Redux Action Type
 export const [GET_INFOS, GET_INFOS_SUCCESS, GET_INFOS_FAILURE] =
   createActionTypes("info/get_infos");
+export const [INIT_INFOS] = createActionTypes("info/init_infos");

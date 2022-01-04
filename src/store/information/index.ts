@@ -5,6 +5,7 @@ import {
   Sensor,
   GET_INFOS_SUCCESS,
   ResponseGetInfo,
+  INIT_INFOS,
 } from "./types";
 
 type InformationStore = {
@@ -22,6 +23,11 @@ const informationStore: InformationStore = {
 type Payload = ResponseGetInfo;
 const informationReducer = handleActions<InformationStore, Payload>(
   {
+    [INIT_INFOS]: () => ({
+      buildings: null,
+      units: null,
+      sensors: null,
+    }),
     [GET_INFOS_SUCCESS]: (state, action) => ({
       ...state,
       ...(action.payload.target === "building"

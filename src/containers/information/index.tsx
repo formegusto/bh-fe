@@ -11,9 +11,18 @@ function InformationContainer({
   sensors,
   getInfos,
   sessionCert,
+  initInfos,
 }: Props) {
   const [viewUnits, setViewUnits] = React.useState<boolean>(false);
   const [viewVisual, setViewVisual] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    initInfos();
+
+    return () => {
+      initInfos();
+    };
+  }, [initInfos]);
 
   React.useEffect(() => {
     if (sessionCert)
