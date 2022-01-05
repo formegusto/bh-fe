@@ -105,6 +105,7 @@ type Props = {
   result?: string | null;
   decryptResult?: string | null;
   onDecrypt: () => void;
+  onExcel: () => void;
 };
 
 function ConsoleComponent({
@@ -117,6 +118,7 @@ function ConsoleComponent({
   result,
   decryptResult,
   onDecrypt,
+  onExcel,
 }: Props) {
   return (
     <Wrap>
@@ -317,7 +319,12 @@ function ConsoleComponent({
                 >
                   DECRYPT
                 </Button>
-                <Button type="button" color="primary" variant="contained">
+                <Button
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  onClick={onExcel}
+                >
                   EXPORT EXCEL
                 </Button>
               </ButtonGroup>

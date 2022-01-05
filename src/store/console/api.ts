@@ -10,7 +10,7 @@ function PATH_GENERATE(pathObj: ConsolePath): string {
 
   for (let i = 0; i < PATH_SEQUENCE.length; i++) {
     if (!pathObj[PATH_SEQUENCE[i]]) break;
-    path += `/${PATH_SEQUENCE[i]}`;
+    path += `/${pathObj[PATH_SEQUENCE[i]]}`;
   }
 
   return path;

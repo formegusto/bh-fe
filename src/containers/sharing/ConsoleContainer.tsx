@@ -9,6 +9,7 @@ import {
   ConsolePath,
   ConsoleQuery,
 } from "src/store/console/types";
+import { dataToExcel, s2ab } from "src/utils/dataToExcel";
 
 interface Props extends ConnectedProps<typeof ConsoleConnector> {}
 function ConsoleContainer({
@@ -108,6 +109,22 @@ function ConsoleContainer({
     }
   }, [decryptResponse, user]);
 
+  const onExcel = React.useCallback(() => {
+    if (decryptResult) {
+      const data = JSON.parse(decryptResult).data;
+      const excelBlob = dataToExcel(data);
+
+      const url = window.URL.createObjectURL(new Blob([s2ab(excelBlob)]));
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = `HUMAN DATA ${Date.now()}.xlsx`;
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    }
+  }, [decryptResult]);
+
   return (
     <ConsoleComponent
       header={header}
@@ -119,6 +136,7 @@ function ConsoleContainer({
       result={result}
       decryptResult={decryptResult}
       onDecrypt={onDecrypt}
+      onExcel={onExcel}
     />
   );
 }
