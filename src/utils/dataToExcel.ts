@@ -54,15 +54,17 @@ interface TimeReport {
 
 const REQUIRED_HEADER = [
   "건물 ID",
-  "건물명",
+  "건물 명",
   "호 ID",
   "호 명",
   "센서 ID",
-  "센서명",
+  "센서 명",
   "기록시간",
 ];
 
 const informationMap: { [key: string]: string } = {
+  createdAt: "기록시간",
+
   isStay: "재실유무",
   residentCount: "거주자 수",
   residentDistribution: "거주자 분포",
@@ -188,6 +190,57 @@ function setMerges(merges: XLSX.Range[], modelHeaders: string[], _: SheetInfo) {
   });
 }
 
+const propertyName: { [key: string]: any } = {
+  building: "건물",
+  unit: "호",
+  sensor: "센서",
+  id: "ID",
+  name: "명",
+};
+
+function setCellJson(data: any, rootName: string, fieldName: string) {
+  let rtnDatas: any;
+  Object.keys(data).forEach((k) => {
+    if (Array.isArray(data[k])) {
+      if (k === "timeReports") {
+        // 이제 반환하면서 올라가면 됨.
+        const timeReports = data[k].map((tr: TimeReport) =>
+          Object.entries(tr).reduce(
+            (acc, [k, v]) => ({
+              ...acc,
+              "센서 ID": data.id,
+
+              "센서 명": data.name,
+              [informationMap[k]]: v,
+            }),
+            {}
+          )
+        );
+        rtnDatas = timeReports;
+      } else {
+        let arr: any = [];
+        data[k].forEach((d: any) => {
+          arr = arr.concat(setCellJson(d, rootName, k.slice(0, k.length - 1)));
+        });
+
+        arr = arr.map((ar: any) => ({
+          ...ar,
+          ...(rootName !== fieldName
+            ? {
+                [propertyName[fieldName] + " ID"]: data.id,
+                [propertyName[fieldName] + " 명"]: data.name,
+              }
+            : {}),
+        }));
+
+        rtnDatas = arr;
+      }
+    }
+  });
+
+  return rtnDatas;
+}
+
 export function dataToExcel(data: Data): string {
   // 배열 타입인지 객체 타입인지의 판단이 중요
   let isArray = false;
@@ -218,35 +271,24 @@ export function dataToExcel(data: Data): string {
     rowSize: 0,
     depthRowSize: {},
   };
+  console.log("setCellJson");
+
   getInfoNames(data, sheetInfo, "buildings");
   getRowSize(data, sheetInfo, "buildings");
   setDepthRowSize(data, sheetInfo, "buildings");
-
-  console.log(sheetInfo);
 
   const modelHeaders = REQUIRED_HEADER.slice(startRowIdx);
   const headers = modelHeaders.concat(sheetInfo.infoNames);
 
   const colWidth = headers.map(() => ({
-    wpx: 150,
+    wpx: 170,
   }));
   const merges: XLSX.Range[] = [];
   setMerges(merges, modelHeaders, sheetInfo);
-
-  console.log(merges);
-
   // header config
   // timeReports가 있을 때 까지 들어가서 배열 형태의 headerName 반환
 
-  // sheet info를 토대로 json 구성
-  let emptyRow = headers.reduce(
-    (acc, cur) => ({
-      ...acc,
-      [cur]: "1",
-    }),
-    {}
-  );
-  let json = Array.from({ length: sheetInfo.rowSize }).map(() => emptyRow);
+  const json = setCellJson(data, "buildings", "buildings");
   let sheet = XLSX.utils.json_to_sheet(json, {
     header: headers,
     skipHeader: false,
@@ -268,6 +310,23 @@ export function dataToExcel(data: Data): string {
       },
     };
     col = String.fromCharCode(col.charCodeAt(0) + 1);
+  });
+
+  Array.from({ length: sheetInfo.rowSize }).forEach((_, r: number) => {
+    const excludeHeader = r + 1;
+    modelHeaders.forEach((_, c: number) => {
+      const col = String.fromCharCode("A".charCodeAt(0) + c);
+      const cr = col + excludeHeader;
+
+      wb.Sheets["HUMAN DATA"][cr] = {
+        v: json[r][modelHeaders[c]],
+        s: {
+          alignment: {
+            vertical: "top",
+          },
+        },
+      };
+    });
   });
 
   // merging
