@@ -50,6 +50,12 @@ function VisualItem({ name, timeReports }: Sensor) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
+  React.useEffect(() => {
+    return () => {
+      if(chartRef && chartRef.current) chartRef.current.destroy()
+    }
+  }, [])
+
   // interval 함수
   /*
   React.useEffect(
@@ -147,7 +153,7 @@ function Visualization({ sensors }: VisualProps) {
   return (
     <Wrap ref={refWrap} id="visuals-wrap">
       {sensors.map((s) => (
-        <VisualItem {...s} />
+        <VisualItem key={s.id} {...s} />
       ))}
     </Wrap>
   );
